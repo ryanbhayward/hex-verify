@@ -1,0 +1,220 @@
+From hayward@cs.ualberta.ca Fri Dec 16 10:44:42 2005
+Received: (from localhost user: 'hayward' uid#16170 fake: STDIN
+	(hayward@tees.cs.ualberta.ca)) by sunkay.cs.ualberta.ca
+	id S568512AbVLPRof (ORCPT <rfc822;hayward@cs.ualberta.ca>);
+	Fri, 16 Dec 2005 10:44:35 -0700
+Date:	Fri, 16 Dec 2005 10:44:34 -0700
+Sender:	Ryan Hayward <hayward@cs.ualberta.ca>
+From:	Ryan Hayward <hayward@cs.ualberta.ca>
+To:	Broderick Arneson <broderic@cs.ualberta.ca>
+Cc:	Ryan Hayward <hayward@cs.ualberta.ca>
+Subject: Re: automatic proof verification in Hex
+Message-ID: <20051216104434.B18790@cs.ualberta.ca>
+References: <20051215130308.A13136@cs.ualberta.ca> <20051215204254.GA1708@worsley.cs.ualberta.ca> <20051215150400.A13957@cs.ualberta.ca> <20051216032120.GA15061@worsley.cs.ualberta.ca>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.2.5.1i
+In-Reply-To: <20051216032120.GA15061@worsley.cs.ualberta.ca>; from broderic@cs.ualberta.ca on Thu, Dec 15, 2005 at 08:21:20PM -0700
+Return-Path: <hayward@cs.ualberta.ca>
+X-Envelope-To: <hayward@cs.ualberta.ca> (uid 16170)
+X-Orcpt: rfc822;hayward@cs.ualberta.ca
+Original-Recipient: rfc822;hayward@cs.ualberta.ca
+Status: RO
+Content-Length: 5202
+Lines: 193
+
+B,
+
+will you be on campus any time today?
+if not, do you want to get together on Monday?
+or should we just do this via email...
+
+> >   * each tree is elusive 
+> >     (this is the counterstrategy condition:
+> >        for each internal node,
+> >          no label occurs in all subtrees;
+> > 	   this happens if and only if each internal
+> > 	   node has at least two children,
+> > 	   and, for each associated subtree,
+> > 	   the combined intersection of the nodes of the subtrees
+> > 	   is empty set);
+> 
+> >   * each tree is satisfying 
+> >     (satisfies the winning condition:
+> >      for each leaf,
+> >        the player has a side-to-side connected component)
+> 
+> So the hexes comprising the root-to-leaf path in the tree form 
+> a path from one side to the other? 
+
+they comprise all the player's stones,
+which will contain a side-to-side path,
+but also (in most cases) some extra stones
+
+> About the second point: 
+> 
+>   So each internal node needs at least two children and
+>   the intersection of the nodes comprising each of the children
+>   should be empty. 
+>  
+>   If this is true then we win, if not, we can be blocked...
+
+correct ...
+
+>   This seems to make intuitive sense to me.  If one of our
+>   subtrees is simply a single chain of nodes, then our opponent can
+>   play any node of that chain and kill that strategy. 
+> 
+>   If any internal node has only one child, then playing at that
+>   node's child kills that solution. So if our proof has an 
+>   internal node with one child, our opponent
+>   can play moves to "steer" us toward that node and then block
+>   us by playing its child.  
+> 
+>   Actually, that's only true if each node has at most 2 children.
+>   If a node has 3 children, and one of those children is an
+>   interal node with only one child, isn't everything still ok
+>   assuming the other 2 subtrees meet the above conditions?
+>   I suppose here we could just drop that child and its subtree 
+>   and everything would be fine anyway.
+
+yes, we could drop the child and its subtree
+(so I may have stated a stronger condition than we need)...
+
+the only property we need:
+the intersection, over all subtrees,
+of the union of all descendants,
+is empty
+
+>   
+>   Sorry for rambling here, but I'm just trying to get a grasp
+>   of how this works.  :)
+> 
+> > for example,
+> > for the 3x3 board,
+> > 
+> >       1   2   3
+> > a     .   .   .
+> >   b     .   .   .
+> >     c     .   .   .
+> > 
+> > here's a winning 1st-player strategy for horizontal,
+> > where I'm drawing the tree using the usual "sideways" notation...
+> > (so c1 has three children, b2, c2, a3)
+> > 
+> > (c1
+> >    (b2
+> >       (a3)
+> >       (b3))
+> >    (c2
+> >       (b3)
+> >       (c3))
+> >    (a3
+> >       (b2)
+> >       (a2
+> >           (a1)
+> >           (b1))))
+> 
+> 
+> That tree without the first b2 subtree would also be winning, wouldn't it?
+
+yes 
+
+good spotting...  :)
+
+it would still be winning;
+(however, it would not be giving the shortest winning
+substrategy in all cases;
+one feature we could add later would be a "pruner",
+which could determine whether the strategy was
+"minimal" in the sense you have just described;
+the above strategy is not minimal, in that 
+the proper sub-strategy obtained by pruning the b2 subtree
+is still winning)
+
+
+> > once we get this implemented,
+> > the next step is to augment the notation
+> > to allow the "and" operation, namely the combinatorial
+> > sum of two games;
+> > this allows our tree representation to be much more compact...
+> 
+> Heh, I have no idea what this means. ;-)
+
+right now the tree we have can be considered an
+"or" tree; after playing the move indicated by a node's cell,
+the player can then continue by playing
+    the first substrategy
+OR  the second substrategy
+OR  ...
+OR  the last substrategy
+
+sometimes one encounters subgames that decompose
+into two or more independent pieces;
+in this case, we get a much more compact tree
+if we add a new kind of node, an AND node
+
+for example, we could replace the tree
+
+(b2
+    (b1
+        (a3)
+	(b3))
+    (c1
+        (a3)
+	(b3))
+    (a3
+        (b1)
+	(c1))
+    (b3
+        (b1)
+	(c1)))
+
+with the equivalent, but more compactly represented tree
+
+(b2 +
+    (  (b1)
+       (c1))
+    (  (a3)
+       (b3)))
+
+where + indicates that b2 is the label of an "AND" node,
+and the two subtrees are second-player strategies
+instead of first player strategies
+(so 
+  if the opponent plays in one of {b1,c1}
+  the player responds with the other;
+  if the opponent plays in one of {a3,c3}
+  the player responds with the other)
+
+
+> > if we get that implemented,
+> > then there are some other extensions we should add too,
+> > (namely, a notation to hand point to point and/or connections)
+> > but I'm getting ahead of myself...
+> 
+> 
+> This looks interesting to me.  I'd definetly like to help in
+> getting it implemented. 
+
+excellent :)
+
+step 1:
+write a parser for the simplest (or-nodes only) notation
+
+step 2:
+extend the parser to a verifier
+
+step 3:
+incorporate and nodes to the parser
+
+step 4:
+write a translator which takes an and/or tree
+and replaces it with the equivalent (but possibly much longer)
+or-nodes only tree
+
+Ciao,
+R
+PS. if you want, we can get together to do the coding...
+

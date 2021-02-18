@@ -1,0 +1,1202 @@
+%!PS-Adobe-3.0
+%%Creator: Jack van Rijswijck, thanks to Cameron Browne
+%%BoundingBox: 0 0 68 43
+%%Pages: 0
+%%EndComments
+
+/OriginX -2 def
+/OriginY 21 def
+%---------------- Variables -------------------
+
+/DimX 3 def
+/DimY 3 def
+/Scale 1.2 def
+
+
+%---------------- Constants -------------------
+
+/Root2 1.414213562 def
+/Root3 1.732050808 def
+
+/Chars {[(a)(b)(c)(d)(e)(f)(g)(h)(i)(j)(k)(l)(m)(n)]} def
+/Digits {[(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13)(14)]} def
+
+/HexRadius 5 Scale mul def
+/HexLineWidth 0.014 def
+/CircleRadius 3.3 Scale mul def
+/CircleLineWidth 0.346 def
+/BoardOutlineWidth 0.5 def
+%/TextHeight 4.5 def
+/TextHeight 6 def
+/TextWidth TextHeight 0.45 mul def
+/BoardShade 0.8 def
+/FadedBoardShade 0.9 def
+/CoordinatesShade 0.5 def
+/DeadPieceShade 0.6 def
+/DeadCellShade 0.6 def
+/EarLength 0.5 def
+/GraphVertexSize 1.5 def
+/GraphLineWidth 0.5 def
+/MoveEvalSize 0.9 def
+/FatLineWidth 1.0 def
+/MarkerSize 1.2 def
+
+%----------- Functions -------------
+
+/HexCenterX { % X coordinate of center of cell: i j HexX
+    /j exch def
+    /i exch def
+    OriginX i j add HexRadius mul 1.5 mul add
+} def
+
+/HexCenterY { % Y coordinate of center of cell: i j HexY
+    /j exch def
+    /i exch def
+    OriginY i j sub HexRadius mul Root3 mul 2 div sub
+} def
+
+/HexCenterVertex {
+    /j exch def
+    /i exch def
+    i j HexCenterX
+    i j HexCenterY
+} def
+
+/HexTopLeftVertex {
+    /j exch def
+    /i exch def
+    i j HexCenterX HexRadius 2 div sub
+    i j HexCenterY HexRadius Root3 mul 2 div add
+} def
+
+/HexTopRightVertex {
+    /j exch def
+    /i exch def
+    i j HexCenterX HexRadius 2 div add
+    i j HexCenterY HexRadius Root3 mul 2 div add
+} def
+
+/HexRightVertex {
+    /j exch def
+    /i exch def
+    i j HexCenterX HexRadius add
+    i j HexCenterY 
+} def
+
+/HexBottomRightVertex {
+    /j exch def
+    /i exch def
+    i j HexCenterX HexRadius 2 div add
+    i j HexCenterY HexRadius Root3 mul 2 div sub
+} def
+
+/HexBottomLeftVertex {
+    /j exch def
+    /i exch def
+    i j HexCenterX HexRadius 2 div sub
+    i j HexCenterY HexRadius Root3 mul 2 div sub
+} def
+
+/HexLeftVertex {
+    /j exch def
+    /i exch def
+    i j HexCenterX HexRadius sub
+    i j HexCenterY 
+} def
+
+/HexUpRightEdge {
+    /size exch def
+    
+    HexRadius 2 div size mul
+    HexRadius Root3 mul 2 div size mul
+} def
+
+/HexRightEdge {
+    /size exch def
+    
+    HexRadius size mul
+    0
+} def
+
+/HexDownRightEdge {
+    /size exch def
+
+    HexRadius 2 div size mul
+    HexRadius Root3 mul 2 div neg size mul
+} def
+
+/HexDownLeftEdge {
+    /size exch def
+
+    HexRadius 2 div neg size mul
+    HexRadius Root3 mul 2 div neg size mul
+} def
+
+/HexLeftEdge {
+    /size exch def
+
+    HexRadius neg size mul
+    0 size mul
+} def
+
+/HexUpLeftEdge {
+    /size exch def
+
+    HexRadius 2 div neg size mul
+    HexRadius Root3 mul 2 div size mul
+} def
+
+/HexagonPath{
+    /j exch def
+    /i exch def
+
+    newpath
+    i j HexLeftVertex moveto
+
+    1.0 HexUpRightEdge rlineto
+    1.0 HexRightEdge rlineto
+    1.0 HexDownRightEdge rlineto
+    1.0 HexDownLeftEdge rlineto
+    1.0 HexLeftEdge rlineto
+    1.0 HexUpLeftEdge rlineto
+
+    closepath
+} def
+
+/HexTopLeftEar {
+    /j exch def
+    /i exch def
+
+    newpath
+    i j HexTopLeftVertex moveto
+    EarLength HexUpLeftEdge rlineto
+    stroke
+} def
+
+/HexTopRightEar {
+    /j exch def
+    /i exch def
+
+    newpath
+    i j HexTopRightVertex moveto
+    EarLength HexUpRightEdge rlineto
+    stroke
+} def
+
+/HexRightEar {
+    /j exch def
+    /i exch def
+
+    newpath
+    i j HexRightVertex moveto
+    EarLength HexRightEdge rlineto
+    stroke
+} def
+
+/HexBottomRightEar {
+    /j exch def
+    /i exch def
+
+    newpath
+    i j HexBottomRightVertex moveto
+    EarLength HexDownRightEdge rlineto
+    stroke
+} def
+
+/HexBottomLeftEar {
+    /j exch def
+    /i exch def
+
+    newpath
+    i j HexBottomLeftVertex moveto
+    EarLength HexDownLeftEdge rlineto
+    stroke
+} def
+
+/HexLeftEar {
+    /j exch def
+    /i exch def
+
+    newpath
+    i j HexLeftVertex moveto
+    EarLength HexLeftEdge rlineto
+    stroke
+} def
+
+/HexagonEars {
+    /j exch def
+    /i exch def
+
+    HexLineWidth setlinewidth
+    
+    i j HexTopLeftEar
+    i j HexTopRightEar
+    i j HexRightEar
+    i j HexBottomRightEar
+    i j HexBottomLeftEar
+    i j HexLeftEar
+} def
+
+/HexDeadCell {
+    /j exch def
+    /i exch def
+
+    i j DeadCellShade ShadedHexagon
+} def
+
+/HexDeadMarkedCell {
+    /j exch def
+    /i exch def
+
+    i j DeadCellShade ShadedHexagon
+    i j HexBlackMarker
+} def
+    
+    
+/ShadedHexagonWithEars {
+    /shade exch def
+    /j exch def
+    /i exch def
+
+    i j shade ShadedHexagon
+    i j HexagonEars
+} def
+    
+/BoundedShadedHexagonWithEars {
+    /shade exch def
+    /j exch def
+    /i exch def
+
+    i j shade BoundedShadedHexagon
+    i j BoundedHexagonWithEars
+} def
+
+/BoundedHexagonWithEars {
+    /j exch def
+    /i exch def
+
+    i j BoundedHexagon
+
+    i 1 gt {
+	j 1 gt {HexLineWidth} {BoardOutlineWidth} ifelse setlinewidth
+	newpath
+	i j HexLeftVertex moveto
+	EarLength HexLeftEdge rlineto
+	stroke
+
+	j DimY lt {HexLineWidth} {BoardOutlineWidth} ifelse setlinewidth
+	newpath
+	i j HexTopLeftVertex moveto
+	EarLength HexUpLeftEdge rlineto
+	stroke
+    }
+    if
+
+    i DimX lt {
+	j DimY lt {HexLineWidth} {BoardOutlineWidth} ifelse setlinewidth
+	newpath
+	i j HexRightVertex moveto
+	EarLength HexRightEdge rlineto
+	stroke
+
+	j 1 gt {HexLineWidth} {BoardOutlineWidth} ifelse setlinewidth
+	newpath
+	i j HexBottomRightVertex moveto
+	EarLength HexDownRightEdge rlineto
+	stroke
+    }
+    if
+
+    j DimY lt {
+	i 1 gt {HexLineWidth} {BoardOutlineWidth} ifelse setlinewidth
+	newpath
+	i j HexTopRightVertex moveto
+	EarLength HexUpRightEdge rlineto
+	stroke
+
+	i DimX lt {HexLineWidth} {BoardOutlineWidth} ifelse setlinewidth
+	newpath
+	i j HexRightVertex moveto
+	EarLength HexRightEdge rlineto
+	stroke
+    }
+    if
+
+    j 1 gt {
+	i DimX lt {HexLineWidth} {BoardOutlineWidth} ifelse setlinewidth
+	newpath
+	i j HexBottomLeftVertex moveto
+	EarLength HexDownLeftEdge rlineto
+	stroke
+
+	i 1 gt {HexLineWidth} {BoardOutlineWidth} ifelse setlinewidth
+	newpath
+	i j HexLeftVertex moveto
+	EarLength HexLeftEdge rlineto
+	stroke
+    }
+    if
+} def
+
+/BoundedShadedHexagon {
+    /shade exch def
+    /j exch def
+    /i exch def
+
+    i j shade FillHexagon
+    i j BoundedHexagon
+} def
+
+/BoundedHexagon {
+    /j exch def
+    /i exch def
+
+    0 setgray
+    HexLineWidth setlinewidth
+    i j HexagonPath
+    stroke
+
+    BoardOutlineWidth setlinewidth
+
+    i 1 eq {
+	newpath
+	i j HexLeftVertex moveto
+	1.0 HexUpRightEdge rlineto
+	1.0 HexRightEdge rlineto
+	stroke
+    }
+    if
+
+    j DimY eq {
+	newpath
+	i j HexTopLeftVertex moveto
+	1.0 HexRightEdge rlineto
+	1.0 HexDownRightEdge rlineto
+	stroke
+    }
+    if
+
+    i DimX eq {
+	newpath
+	i j HexRightVertex moveto
+	1.0 HexDownLeftEdge rlineto
+	1.0 HexLeftEdge rlineto
+	stroke
+    }
+    if
+
+    j 1 eq {
+	newpath
+	i j HexBottomRightVertex moveto
+	1.0 HexLeftEdge rlineto
+	1.0 HexUpLeftEdge rlineto
+	stroke
+    }
+    if
+} def
+
+/ShadedHexagon {
+    /shade exch def
+    /j exch def
+    /i exch def
+
+    i j shade FillHexagon
+    i j Hexagon
+} def
+
+/Hexagon { % call: i j Hexagon
+    /j exch def
+    /i exch def
+
+    i j HexagonPath
+    HexLineWidth setlinewidth
+    0 setgray
+    stroke
+} def
+
+/FillHexagon {   % call: i j shade FillHexagon
+    /shade exch def
+    /j exch def
+    /i exch def
+
+    i j HexagonPath
+    0 setlinewidth
+    shade setgray
+    fill
+    i j Hexagon
+} def
+
+/HexBoardOutlinePath {
+    newpath
+    1 1 HexLeftVertex moveto
+
+    1 1 DimY {
+	1.0 HexUpRightEdge rlineto
+	1.0 HexRightEdge rlineto
+    } for
+
+    1 1 DimX 1 sub {
+	1.0 HexDownRightEdge rlineto
+	1.0 HexRightEdge rlineto
+    } for
+    1.0 HexDownRightEdge rlineto
+
+    1 1 DimY {
+	1.0 HexDownLeftEdge rlineto
+	1.0 HexLeftEdge rlineto
+    } for
+
+    1 1 DimX 1 sub {
+	1.0 HexUpLeftEdge rlineto
+	1.0 HexLeftEdge rlineto
+    } for
+    1.0 HexUpLeftEdge rlineto
+
+    closepath
+} def
+
+/HexBoardOutline {
+    HexBoardOutlinePath
+    BoardOutlineWidth setlinewidth
+    0 setgray
+    stroke
+} def
+
+/HexBoardFillNoOutline {
+    /shade exch def
+    HexBoardOutlinePath
+    0 setlinewidth
+    shade setgray
+    fill
+} def
+
+/HexBoardFill {
+    /shade exch def
+    shade HexBoardFillNoOutline
+    HexBoardOutline
+} def
+
+/HexShannonGrid {
+    1 1 DimY {
+	/j exch def
+	1 1 DimX {
+	    /i exch def
+	    i j HexVertex
+	} for
+    } for
+
+    1 1 DimY {
+	/j exch def
+	1 j DimX j HexLine
+    } for
+
+    1 1 DimX {
+	/i exch def
+	i 1 i DimY HexLine
+    } for
+
+    2 1 DimX DimY add 2 sub {
+	/i exch def
+	i DimY lt {1 i} {i DimY sub 1 add DimY} ifelse
+	i DimX lt {i 1} {DimX i DimX sub 1 add} ifelse
+	HexLine
+    } for
+} def
+
+/HexBoardGrid {
+    1 1 DimY {
+	/j exch def
+	1 1 DimX {
+	    /i exch def
+	    i j Hexagon
+	} for
+    } for
+} def
+
+/DrawHexBoard {
+    BoardShade HexBoardFill
+    HexBoardGrid
+} def
+
+/DrawHexBoardNoOutline {
+    1 1 DimY {
+	/j exch def
+	1 1 DimX {
+	    /i exch def
+	    i j BoardShade FillHexagon
+	    i j Hexagon
+	} for
+    } for
+} def
+
+/YBoardOutlinePath {
+    newpath
+    0 0 HexLeftVertex moveto
+
+    1 1 DimX {
+	1.0 HexUpRightEdge rlineto
+	1.0 HexRightEdge rlineto
+    } for
+
+    1 1 DimX {
+	1.0 HexDownRightEdge rlineto
+	1.0 HexDownLeftEdge rlineto
+    } for
+
+    1 1 DimX {
+	1.0 HexLeftEdge rlineto
+	1.0 HexUpLeftEdge rlineto
+    } for
+
+    closepath
+} def
+
+/YBoardOutline {
+    YBoardOutlinePath
+    BoardOutlineWidth setlinewidth
+    0 setgray
+    stroke
+} def
+
+/YBoardFill {
+    /shade exch def
+    YBoardOutlinePath
+    0 setlinewidth
+    shade setgray
+    fill
+    YBoardOutline
+} def
+
+/YBoardGrid {
+    0 1 DimX 1 sub {
+	/j exch def
+	0 1 DimX 1 sub j sub {
+	    /i exch def
+	    i j Hexagon
+	} for
+    } for
+} def
+
+/DrawYBoard {
+    BoardShade YBoardFill
+    YBoardGrid
+} def
+
+/FontSelect { % bold italic FontSelect
+    /italic exch def
+    /bold exch def
+
+    bold {
+	italic {
+	    /Times-BoldItalic findfont TextHeight scalefont setfont
+	} {
+	    /Times-Bold findfont TextHeight scalefont setfont
+	}
+	ifelse
+    } {
+	italic {
+	    /Times-Italic findfont TextHeight scalefont setfont
+	} {
+	    /Times findfont TextHeight scalefont setfont
+	}
+	ifelse
+    }
+    ifelse
+} def
+	    
+/LabelString {   % call: i j (str) strlen LabelString
+    /strlen exch def
+    /str exch def
+    /j exch def
+    /i exch def
+
+    newpath
+    i j HexCenterX TextWidth strlen mul 0.5 mul sub
+    i j HexCenterY TextHeight 0.225 mul sub
+    moveto
+    str
+    show
+} def
+
+/AbsLabelString {
+    /strlen exch def
+    /str exch def
+    /y exch def
+    /x exch def
+
+    newpath
+    x AbsCoordX TextWidth strlen mul 0.5 mul sub
+    y AbsCoordY TextHeight 0.225 mul sub
+    moveto
+    str
+    show
+} def
+
+/LabelStringVerb { % i j (str) strlen shade bold italic LabelStringVerb
+    /italic exch def
+    /bold exch def
+    /shade exch def
+    /strlen exch def
+    /str exch def
+    /j exch def
+    /i exch def
+    bold italic FontSelect
+    shade setgray
+    i j str strlen LabelString
+} def
+
+/HexBoardCoordinates {
+    false true FontSelect
+    CoordinatesShade setgray
+    
+    1 1 DimX {
+	/i exch def
+	i 0 Chars i 1 sub get 1 LabelString
+	i DimY 1 add Chars i 1 sub get 1 LabelString
+    } for
+
+    1 1 DimY {
+	/j exch def
+	0 j Digits j 1 sub get
+	DimY 9 gt {2} {1} ifelse
+	LabelString
+	DimX 1 add j Digits j 1 sub get
+	DimY 9 gt {2} {1} ifelse
+	LabelString
+    } for
+} def
+
+/HexEdgePieceLocationBottomLeft {
+    /dist exch def
+    /midx DimX 1 add 2 div def
+    /midy DimY 1 add 2 div def
+
+    midx
+    2 midx sub dist sub
+} def
+
+/HexEdgePieceLocationTopRight {
+    /dist exch def
+    /midx DimX 1 add 2 div def
+    /midy DimY 1 add 2 div def
+
+    midx
+    DimX DimY add midx sub dist add
+} def
+
+/HexEdgePieceLocationTopLeft {
+    /dist exch def
+    /midx DimX 1 add 2 div def
+    /midy DimY 1 add 2 div def
+    
+    2 midy sub dist sub
+    midy
+} def
+
+/HexEdgePieceLocationBottomRight {
+    /dist exch def
+    /midx DimX 1 add 2 div def
+    /midy DimY 1 add 2 div def
+    
+    DimX DimY add midy sub dist add
+    midy
+} def
+
+/HexWhiteTerminal {
+    (T) 1 HexWhiteLabelledPiece
+} def
+
+/HexBlackTerminal {
+    (T) 1 HexBlackLabelledPiece
+} def
+    
+/HexShannonTerminalBottomLeft {
+    /dist exch def
+
+    dist HexEdgePieceLocationBottomLeft
+    HexWhiteTerminal
+} def
+
+/HexShannonTerminalTopRight {
+    /dist exch def
+
+    dist HexEdgePieceLocationTopRight
+    HexWhiteTerminal
+} def
+
+/HexShannonTerminalConnectionsWhite {
+    /dist exch def
+    /midx DimX 1 add 2 div def
+    /midy DimY 1 add 2 div def
+
+    1 1 DimX {
+	/i exch def
+	dist HexEdgePieceLocationBottomLeft i 1 HexLine
+	dist HexEdgePieceLocationTopRight i DimY HexLine
+    } for
+
+    dist HexShannonTerminalBottomLeft
+    dist HexShannonTerminalTopRight
+} def
+
+/HexShannonTerminalTopLeft {
+    /dist exch def
+
+    dist HexEdgePieceLocationTopLeft
+    HexBlackTerminal
+} def
+
+/HexShannonTerminalBottomRight {
+    /dist exch def
+
+    dist HexEdgePieceLocationBottomRight
+    HexBlackTerminal
+} def
+
+/HexShannonTerminalConnectionsBlack {
+    /dist exch def
+    /midx DimX 1 add 2 div def
+    /midy DimY 1 add 2 div def
+
+    1 1 DimY {
+	/j exch def
+	dist HexEdgePieceLocationTopLeft 1 j HexLine
+	dist HexEdgePieceLocationBottomRight DimX j HexLine
+    } for
+
+    dist HexShannonTerminalTopLeft
+    dist HexShannonTerminalBottomRight
+} def
+
+/HexBoardEdgePieceTopLeft {
+    /dist exch def
+    dist HexEdgePieceLocationTopLeft HexBlackPiece
+} def
+/HexBoardEdgePieceBottomLeft {
+    /dist exch def
+    dist HexEdgePieceLocationBottomLeft HexWhitePiece
+} def
+/HexBoardEdgePieceTopRight {
+    /dist exch def
+    dist HexEdgePieceLocationTopRight HexWhitePiece
+} def
+/HexBoardEdgePieceBottomRight {
+    /dist exch def
+    dist HexEdgePieceLocationBottomRight HexBlackPiece
+} def
+
+/HexBoardEdgePieces { % extradist
+    /dist exch def
+
+    dist HexBoardEdgePieceTopLeft
+    dist HexBoardEdgePieceBottomLeft
+    dist HexBoardEdgePieceTopRight
+    dist HexBoardEdgePieceBottomRight
+} def
+
+/HexDot { % i j size
+    /size exch def
+    /j exch def
+    /i exch def
+
+    0 setlinewidth
+    0 setgray
+    newpath
+    i j HexCenterVertex size 0 360 arc
+    fill
+} def
+
+
+/HexWhiteMarkedPiece {
+    /j exch def
+    /i exch def
+
+    i j HexWhitePiece
+    
+    0 setgray
+    0 setlinewidth
+    newpath
+    i j HexCenterVertex MarkerSize 0 360 arc
+    fill
+} def
+
+/HexBlackMarkedPiece {
+    /j exch def
+    /i exch def
+
+    i j HexBlackPiece
+    
+    1 setgray
+    0 setlinewidth
+    newpath
+    i j HexCenterVertex MarkerSize 0 360 arc
+    fill
+} def
+
+
+/HexDoubleMarker {
+    /shaderight exch def
+    /shadeleft exch def
+    /j exch def
+    /i exch def
+
+    shadeleft setgray
+    0 setlinewidth
+    newpath
+    i j HexCenterX MarkerSize sub i j HexCenterY MarkerSize 0 360 arc
+    fill
+
+    0 setgray
+    CircleLineWidth setlinewidth
+    newpath
+    i j HexCenterX MarkerSize sub i j HexCenterY MarkerSize 0 360 arc
+    stroke
+
+    shaderight setgray
+    0 setlinewidth
+    newpath
+    i j HexCenterX MarkerSize add i j HexCenterY MarkerSize 0 360 arc
+    fill
+
+    0 setgray
+    CircleLineWidth setlinewidth
+    newpath
+    i j HexCenterX MarkerSize add i j HexCenterY MarkerSize 0 360 arc
+    stroke
+} def
+
+/HexBlackWhiteMarker {
+    /j exch def
+    /i exch def
+    i j 0.0 1.0 HexDoubleMarker
+} def
+
+/HexWhiteBlackMarker {
+    /j exch def
+    /i exch def
+    i j 1.0 0.0 HexDoubleMarker
+} def
+        
+/HexMarker {
+    /j exch def
+    /i exch def
+
+    0 setlinewidth
+    newpath
+    i j HexCenterVertex MarkerSize 0 360 arc
+    fill
+
+    0 setgray
+    CircleLineWidth setlinewidth
+    newpath
+    i j HexCenterVertex MarkerSize 0 360 arc
+    stroke  
+} def
+
+/HexBlackMarker {
+    /j exch def
+    /i exch def
+
+    0 setgray
+    i j HexMarker
+} def
+
+/HexWhiteMarker {
+    /j exch def
+    /i exch def
+
+    1 setgray
+    i j HexMarker
+} def
+    
+/HexVertex {
+    /j exch def
+    /i exch def
+
+    i j GraphVertexSize HexDot
+} def
+
+/HexLine {
+    /j2 exch def
+    /i2 exch def
+    /j1 exch def
+    /i1 exch def
+
+    GraphLineWidth setlinewidth
+    0 setgray
+    newpath
+    i1 j1 HexCenterVertex moveto
+    i2 j2 HexCenterVertex lineto
+    stroke
+} def
+
+/HexPiece { % i j shade
+    /shade exch def
+    /j exch def
+    /i exch def
+
+    0 setlinewidth
+    shade setgray
+    newpath
+    i j HexCenterVertex CircleRadius 0 360 arc
+    fill
+
+    0 setgray
+    CircleLineWidth setlinewidth
+    newpath
+    i j HexCenterVertex CircleRadius 0 360 arc
+    stroke
+} def
+
+/HexWhitePiece {
+    /j exch def
+    /i exch def
+
+    i j 1.0 HexPiece
+} def
+
+/HexBlackPiece {
+    /j exch def
+    /i exch def
+
+    i j 0.0 HexPiece
+} def
+
+/HexWhiteLabelledPiece { % i j (str) strlen
+    /strlen exch def
+    /str exch def
+    /j exch def
+    /i exch def
+
+    i j HexWhitePiece
+    i j str strlen 0.0 true true LabelStringVerb
+} def
+
+/HexBlackLabelledPiece { % i j (str) strlen
+    /strlen exch def
+    /str exch def
+    /j exch def
+    /i exch def
+
+    i j HexBlackPiece
+    i j str strlen 1.0 true true LabelStringVerb
+} def
+
+/DrawBox { % minx miny maxx maxy
+    /maxy exch def
+    /maxx exch def
+    /miny exch def
+    /minx exch def
+
+    newpath
+    minx miny moveto
+    maxx minx sub 0 rlineto
+    0 maxy miny sub rlineto
+    minx maxx sub 0 rlineto
+    0 miny maxy sub rlineto
+    HexLineWidth setlinewidth
+    0 setgray
+    stroke
+} def
+
+/HexMoveEval {
+    /eval exch def
+    /j exch def
+    /i exch def
+
+%    i j 1.0 eval sub FadedBoardShade mul BoundedShadedHexagon
+    newpath
+    i j HexCenterVertex moveto
+    MoveEvalSize HexLeftEdge rlineto
+    MoveEvalSize HexUpRightEdge rlineto
+    MoveEvalSize HexRightEdge rlineto
+    MoveEvalSize HexDownRightEdge rlineto
+    MoveEvalSize HexDownLeftEdge rlineto
+    MoveEvalSize HexLeftEdge rlineto
+    MoveEvalSize HexUpLeftEdge rlineto
+%    eval MoveEvalSize mul HexLeftEdge rlineto
+%    eval MoveEvalSize mul HexUpRightEdge rlineto
+%    eval MoveEvalSize mul HexRightEdge rlineto
+%    eval MoveEvalSize mul HexDownRightEdge rlineto
+%    eval MoveEvalSize mul HexDownLeftEdge rlineto
+%    eval MoveEvalSize mul HexLeftEdge rlineto
+%    eval MoveEvalSize mul HexUpLeftEdge rlineto
+
+    closepath
+
+    0 setlinewidth
+    1.0 eval sub BoardShade mul setgray
+    fill
+} def
+
+/HexSymmetricalMoveEval {
+    /eval exch def
+    /j exch def
+    /i exch def
+
+    i j eval HexMoveEval
+    DimX 1 add i sub DimY 1 add j sub eval HexMoveEval
+} def
+
+/AbsCoordX {
+    /x exch def
+
+    OriginX x Scale mul add
+} def
+
+/AbsCoordY {
+    /y exch def
+
+    OriginY y Scale mul add
+} def
+
+/AbsCoords {
+    /y exch def
+    /x exch def
+
+    x AbsCoordX
+    y AbsCoordY
+} def
+
+/AbsLine {
+    /y2 exch def
+    /x2 exch def
+    /y1 exch def
+    /x1 exch def
+
+    newpath
+    x1 y1 AbsCoords moveto
+    x2 y2 AbsCoords lineto
+    stroke
+} def
+
+/AbsDot {
+    /size exch def
+    /y exch def
+    /x exch def
+
+    0 setlinewidth
+    0 setgray
+    newpath
+    x y AbsCoords size 0 360 arc
+    fill
+} def
+
+/AbsVertex {
+    /y exch def
+    /x exch def
+
+    x y GraphVertexSize AbsDot
+} def
+
+/HexUpArrow {
+   /size exch def
+   /j exch def
+   /i exch def
+
+   GraphLineWidth setlinewidth
+   0 setgray
+   newpath
+   i j HexCenterVertex moveto
+   0 CircleRadius size mul neg rmoveto
+   0 CircleRadius size mul 2 mul rlineto
+   CircleRadius size mul 4 div neg CircleRadius size mul 2 div neg rmoveto
+   CircleRadius size mul 4 div CircleRadius size mul 2 div rlineto
+   CircleRadius size mul 4 div CircleRadius size mul 2 div neg rlineto
+   stroke
+} def
+
+/HexRightArrow {
+   /size exch def
+   /j exch def
+   /i exch def
+
+   GraphLineWidth setlinewidth
+   0 setgray
+   newpath
+   i j HexCenterVertex moveto
+   CircleRadius size mul neg 0 rmoveto
+   CircleRadius size mul 2 mul 0 rlineto
+   CircleRadius size mul 2 div neg CircleRadius size mul 4 div neg rmoveto
+   CircleRadius size mul 2 div CircleRadius size mul 4 div rlineto
+   CircleRadius size mul 2 div neg CircleRadius size mul 4 div rlineto
+   stroke
+} def
+
+/HexLeftArrow {
+   /size exch def
+   /j exch def
+   /i exch def
+
+   GraphLineWidth setlinewidth
+   0 setgray
+   newpath
+   i j HexCenterVertex moveto
+   CircleRadius size mul 0 rmoveto
+   CircleRadius size mul 2 mul neg 0 rlineto
+   CircleRadius size mul 2 div CircleRadius size mul 4 div neg rmoveto
+   CircleRadius size mul 2 div neg CircleRadius size mul 4 div rlineto
+   CircleRadius size mul 2 div CircleRadius size mul 4 div rlineto
+   stroke
+} def
+
+/HexBlackCapturedPiece {
+    /j exch def
+    /i exch def
+
+    i j HexBlackMarkedPiece
+} def
+
+/HexWhiteCapturedPiece {
+    /j exch def
+    /i exch def
+
+    i j HexWhiteMarkedPiece
+} def
+
+/HexDeadPiece {
+    /j exch def
+    /i exch def
+
+    i j DeadPieceShade HexPiece
+    
+   GraphLineWidth setlinewidth
+   0 setgray
+   newpath
+   i j HexCenterVertex moveto
+   MarkerSize neg 0 rmoveto
+   MarkerSize 2 mul 0 rlineto
+   MarkerSize neg MarkerSize neg rmoveto
+   0 MarkerSize 2 mul rlineto
+   stroke
+} def
+
+/HexDominatedCell {
+    /j exch def
+    /i exch def
+
+   GraphLineWidth setlinewidth
+   0 setgray
+   newpath
+   i j HexCenterVertex moveto
+   MarkerSize Root2 div neg MarkerSize Root2 div neg rmoveto
+   MarkerSize Root2 mul MarkerSize Root2 mul rlineto
+   MarkerSize Root2 mul neg 0 rmoveto
+   MarkerSize Root2 mul MarkerSize Root2 mul neg rlineto
+   stroke
+} def
+
+
+%%---------------- Program -------------------
+
+
+DrawHexBoard
+1 HexBoardEdgePieces
+HexBoardCoordinates
+
+3 1 (1) 1 HexWhiteLabelledPiece
+
+
+%------------ Trailer --------------
+
+showpage

@@ -1,0 +1,40 @@
+\documentclass[12pt]{article}
+\usepackage{epsfig,latexsym,pst-tree,scalefnt}
+\input{head204}
+\newcommand{\board}[2]{\mbox{$#1$$\times$$#2$}}
+\def\stt{strategy tree}
+\def\exct{excised tree}
+\def\aoat{and/or autotree}
+\def\myAND{\mbox{\tt and}}
+\def\andnode{\myAND-node}
+
+\def\myfoot{Computers and Games
+       \hf {\it Torino} May 29-31 2006 
+       \hf page \arabic{page}}
+
+\pagestyle{plain}
+\renewcommand{\thepage}{\myfoot}
+
+\setcounter{page}{7}
+\begin{document}
+{\LARGE\bf
+\input{fB4.tex}
+
+\newpage
+\input{sAnd.tex}
+
+\newpage
+\input{fT4P.tex}
+
+\newpage
+\input{fYangRT.tex}
+
+\newpage
+\input{fp8.tex}
+\vfill
+
+\input{fp1.diag.tex}
+
+\newpage
+\input{f7x7.tex}
+}\end{document}

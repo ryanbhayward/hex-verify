@@ -1,0 +1,98 @@
+\begin{figure}[t]
+\ \hfill
+{\tiny
+%{\pstree[treesep=1pt,nodesep=1pt,treefit=tight,levelsep=8ex]{ \TR{c1} } {
+{\pstree[linewidth=0pt,treesep=1pt,nodesep=1pt,treefit=tight,levelsep=8ex]{ \TR{c1} } {
+   \pstree{ \TR{a1} } {
+     \pstree{ \TR{c2} } {
+       \pstree{\TR{a2}}{\TR{c3}}
+       \pstree{\TR{a3}}{\TR{c3}}
+       \pstree{\TR{b1}}{\TR{c3}}
+       \pstree{\TR{b2}}{\TR{c3}}
+       \pstree{\TR{b3}}{\TR{c3}}
+       \pstree{\TR{c3}}{\TR{b3}}
+     }
+   }
+   \pstree{ \TR{a2} } {
+     \pstree{ \TR{c2} } {
+       \pstree{\TR{a1}}{\TR{c3}}
+       \pstree{\TR{a3}}{\TR{c3}}
+       \pstree{\TR{b1}}{\TR{c3}}
+       \pstree{\TR{b2}}{\TR{c3}}
+       \pstree{\TR{b3}}{\TR{c3}}
+       \pstree{\TR{c3}}{\TR{b3}}
+     }
+   }
+   \pstree{ \TR{a3} } {
+     \pstree{ \TR{c2} } {
+       \pstree{\TR{a1}}{\TR{c3}}
+       \pstree{\TR{a2}}{\TR{c3}}
+       \pstree{\TR{b1}}{\TR{c3}}
+       \pstree{\TR{b2}}{\TR{c3}}
+       \pstree{\TR{b3}}{\TR{c3}}
+       \pstree{\TR{c3}}{\TR{b3}}
+     }
+   }
+   \pstree{ \TR{b1} } {
+     \pstree{ \TR{c2} } {
+       \pstree{\TR{a1}}{\TR{c3}}
+       \pstree{\TR{a2}}{\TR{c3}}
+       \pstree{\TR{a3}}{\TR{c3}}
+       \pstree{\TR{b2}}{\TR{c3}}
+       \pstree{\TR{b3}}{\TR{c3}}
+       \pstree{\TR{c3}}{\TR{b3}}
+     }
+   }
+   \pstree{ \TR{b2} } {
+     \pstree{ \TR{c2} } {
+       \pstree{\TR{a1}}{\TR{c3}}
+       \pstree{\TR{a2}}{\TR{c3}}
+       \pstree{\TR{a3}}{\TR{c3}}
+       \pstree{\TR{b1}}{\TR{c3}}
+       \pstree{\TR{b3}}{\TR{c3}}
+       \pstree{\TR{c3}}{\TR{b3}}
+     }
+   }
+   \pstree{ \TR{b3} } {
+     \pstree{ \TR{a3} } {
+       \pstree{\TR{a1}}{\TR{b2}}
+       \pstree{\TR{a2}}{\TR{b2}}
+       \pstree{\TR{b1}}{\TR{b2}}
+       \pstree{\TR{b2}}{
+         \pstree{\TR{a2}}{
+	   \pstree{\TR{a1}}{\TR{b1}}
+	   \pstree{\TR{b1}}{\TR{a1}}
+	   \pstree{\TR{c2}}{\TR{a1}}
+	   \pstree{\TR{c3}}{\TR{a1}}
+         }
+       }
+       \pstree{\TR{c2}}{\TR{b2}}
+       \pstree{\TR{c3}}{\TR{b2}}
+     }
+   }
+   \pstree{ \TR{c2} } {
+     \pstree{ \TR{b2} } {
+       \pstree{\TR{a1}}{\TR{a3}}
+       \pstree{\TR{a2}}{\TR{a3}}
+       \pstree{\TR{a3}}{\TR{b3}}
+       \pstree{\TR{b1}}{\TR{a3}}
+       \pstree{\TR{b3}}{\TR{a3}}
+       \pstree{\TR{c3}}{\TR{a3}}
+     }
+   }
+   \pstree{ \TR{c3} } {
+     \pstree{ \TR{b2} } {
+       \pstree{\TR{a1}}{\TR{a3}}
+       \pstree{\TR{a2}}{\TR{a3}}
+       \pstree{\TR{a3}}{\TR{b3}}
+       \pstree{\TR{b1}}{\TR{a3}}
+       \pstree{\TR{b3}}{\TR{a3}}
+       \pstree{\TR{c2}}{\TR{a3}}
+     }
+   }
+}
+}}\hfill \ 
+\caption{A winning first-player \board{3}{3} Hex strategy.
+Fig.~\ref{fig:B3} shows one line of this strategy.}
+\label{fig:T3x3}
+\end{figure}

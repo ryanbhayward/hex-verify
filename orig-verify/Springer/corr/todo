@@ -1,0 +1,49 @@
+one more thing:
+  stress test our method by running it on the
+  Shannon-strategy for n(n-1) boards for largest possible n
+
+output: 
+  total number of nodes?
+
+new option:
+  remove and nodes and pattern calls
+    (create an or-only tree; should have same
+    number of leafs as number of paths in current version)
+
+mention in paper
+  that connection information in proof
+  template is for *human debugging purposes* only;
+  not needed unless we go to a dynamic programming version,
+  which would run faster
+
+Yang's proof actually had to be modified
+  in a few places
+  to conform to our proof format
+  because it wasn't elusive
+    (turned out that one of the
+    patterns called could be replace
+    by a smaller calling pattern)
+
+future work:
+  automated translation... a few small problems to overcome...
+
+From ph@cs.ualberta.ca Sun Jan 22 20:50:27 2006
+> I thought I changed your email address, though;
+> are you reading the submitted version?
+
+Oops, yeah... older version, so only 2+3 are actually there. Still, overall 
+it reads quite nicely! (I would never have known it was so last-minute :)
+
+> R
+>
+> On Sun, Jan 22, 2006 at 04:03:16PM -0700, Philip Henderson wrote:
+>> Is it bad that I just spotted a few errors then...? They're all minor:
+>> 1) my e-mail address is ph@cs.etc
+>> 2) page 6, paragraph 4 - missing the word "one" (in this case, there is 
+>> only
+>> *one* subtree)
+>> 3) fig 5, the a3-b2 miai are never played out (see bottom right of fig 
+>> 4 -
+>> they're part of the strategy)... so I think the caption is misleading, 
+>> since
+>> the line of play is not really finished.

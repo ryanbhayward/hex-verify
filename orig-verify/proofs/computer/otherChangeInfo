@@ -1,0 +1,20 @@
+From ph@cs.ualberta.ca Sat Jan 21 22:07:19 2006
+
+In addition to the changes to Jing Yang's proof listed at the top of 7x7, 
+it should also be noted that I never used patterns 2c and 2d... the reason 
+is that pattern2d calls pattern2ab, and the only places 2d appeared was 
+when the 2ab decision had already been made earlier... so 2d was really 
+redundant.
+
+Similarly, 2c appeared in cases like pattern 8, where the pattern calling 
+2c doesn't realize that these two hexes are actually connected somehow... 
+since that knowledge is only really available to its parent (very similar 
+to 2d - the info/decision is at a higher level). So I just typed in the 
+miai manually for these cases...
+
+Examples of this are pattern8 (if we play e5, d6 and e4 join to c6 and d4, 
+but c6 and d4 are connected by pattern2ab in a parent pattern) and pattern 
+32b (playing b6 doesn't really invoke pattern 2d since a5-a6 are already 
+miai)
+
+Hope this makes sense!

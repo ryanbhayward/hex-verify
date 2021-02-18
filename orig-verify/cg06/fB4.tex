@@ -1,0 +1,103 @@
+\ \hf \epsfig{file=B4.eps,scale=2.0}  \hf \ 
+
+\vspace*{.5in}
+
+\ \hfill \epsfig{file=B4full.eps,scale=2.0} \hf \ 
+
+\vspace*{.5in}
+
+\ \hfill
+\pstree[treemode=R,linewidth=1pt,treesep=4pt,nodesep=4pt,treefit=tight,levelsep=6ex]{ \TR{d1} } {
+   \pstree{ \TR{$\bullet$} } {
+     \pstree{ \TR{c3} } {
+       \pstree{\TR{$\bullet$}}{
+         \TR{b4}
+         \TR{c4}
+       }
+       \pstree{\TR{$\bullet$}}{
+         \TR{c2}
+         \TR{d2}
+       }
+     }
+     \pstree{ \TR{b3} } {
+       \pstree{\TR{$\bullet$}}{
+         \TR{a4}  
+         \TR{b4}  
+       }
+       \pstree{\TR{$\bullet$}} {
+         \pstree{\TR{a2}}{
+           \pstree{\TR{$\bullet$}}{
+             \TR{a1}  
+             \TR{b1}  
+           }
+           \pstree{\TR{$\bullet$}}{
+             \TR{a3}  
+             \TR{b2}  
+           }
+         }
+         \TR{c2}
+       }
+     }
+     \pstree{ \TR{b3} } {
+       \pstree{\TR{$\bullet$}}{
+         \TR{a4}  
+         \TR{b4}  
+       }
+       \pstree{\TR{$\bullet$}} {
+         \pstree{\TR{b2}}{
+           \pstree{\TR{$\bullet$}}{
+             \TR{b1}  
+             \TR{c1}  
+           }
+         }
+         \pstree{\TR{d2}}{
+           \pstree{\TR{$\bullet$}}{
+             \TR{c3}  
+             \pstree{\TR{d3}}{
+               \pstree{\TR{$\bullet$}}{
+                 \TR{c4}  
+                 \TR{d4}  
+               }
+             }
+           }
+         }
+       }
+     }
+     \pstree{ \TR{d3} } {
+       \pstree{\TR{$\bullet$}}{
+         \TR{c4}  
+         \TR{d4}  
+       }
+       \pstree{\TR{$\bullet$}} {
+         \TR{d2}
+         \pstree{\TR{b3}}{
+           \pstree{\TR{$\bullet$}} {
+             \TR{a4}  
+             \TR{c3}  
+           }
+           \pstree{\TR{$\bullet$}}{
+             \TR{c2}  
+             \pstree{\TR{a2}}{
+               \pstree{\TR{$\bullet$}}{
+                 \TR{a1}  
+                 \TR{b1}  
+               }
+               \pstree{\TR{$\bullet$}}{
+                 \TR{a3}  
+                 \TR{b2}  
+               }
+             }
+           }
+         }
+       }
+     }
+   }
+ }
+%}%}\hfill \ 
+%\caption{An \aoat\ for a winning first-player \board{4}{4} Hex strategy.
+%Odd depth nodes ($\bullet$) are ``or''-nodes;
+%even depth nodes (cell labels) are ``and''-nodes.
+%Fig.~\ref{fig:B4} shows one line of this strategy.}
+%\label{fig:T4x4}
+
+%\end{figure}

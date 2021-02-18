@@ -1,0 +1,66 @@
+(boardsize 7)
+
+( pattern2ab
+  (a3 b1)
+  (a2 b2)
+  (a3 b1)
+
+  [ (a2) (b2) ]
+)
+
+( pattern2c
+  (a2 b3 c1 c2)
+  (a3 b1)
+  (a2 b3 c1 c2)
+
+  [ (a3) (b1) ]
+)
+
+( pattern2d
+  (a6 NEdge)
+  (a7 b6 b7 c7)
+  (a6 c6 NEdge)
+
+  [ (a7)
+    (b6 [ (pattern2ab (c6 NEdge) (b7 c7) (c6 NEdge))
+        ])
+  ]
+)
+
+( pattern13
+  (a3 SEdge)
+  (a1 a2 b1 b2 b3 c1 c2 d1)
+  (a3 SEdge)
+
+  [ (a2 [ (pattern2ab (a2 SEdge) (a1 b1) (a2 SEdge)) ])
+    (c2 [ (pattern2ab (a3 c2) (b2 b3) (a3 c2)) ]
+        [ (pattern2ab (c2 SEdge) (c1 d1) (c2 SEdge)) ])
+  ]
+)
+
+( pattern7
+  (d4 SEdge)
+  (b1 b2 b3 c1 c2 c3 c4 d1 d2 d3 e1 e3 e4 f2 g1 g2)
+  (d4 f3 SEdge)
+
+  [(g1 [(pattern2ab (d4 f3) (e3 e4) (d4 f3))]
+       [(pattern2ab (f3 g1) (f2 g2) (f3 g1))])
+   (c3 [(pattern2ab (c3 d4) (c4 d3) (c3 d4))]
+       [(pattern13 (c3 SEdge) (e1 d2 d1 c2 b3 c1 b2 b1) (c3 SEdge))])
+  ]
+)
+
+( pattern9
+  (d4 SEdge)
+  (c1 c2 c3 d1 d2 d3 e2 e3 f1 g1)
+  (d4 f2 SEdge)
+
+  [(e3 [(pattern2ab (f2 SEdge) (f1 g1) (f2 SEdge))
+       ])
+   (d3 [(e2 [(pattern2ab (f2 SEdge) (f1 g1) (f2 SEdge))])
+       ])
+   (d3 [(c2 [(pattern2ab (c2 d3) (c3 d2) (c2 d3))]
+            [(pattern2ab (c2 SEdge) (c1 d1) (c2 SEdge))])
+       ])
+  ]
+)

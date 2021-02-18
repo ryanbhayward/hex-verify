@@ -1,0 +1,703 @@
+//
+// List of patterns:
+//  # - means finished without changes from Yang's version
+//  * - means finished but modified
+//
+//  #1,  #2,  *3,  #4,  #5,  #6,  #7,  #8,  #9, #10,
+// *11, #12, #13, *14, #15, *16, *17, #18, *19, #20,
+// #21, #22, #23, #24, #25, #26, #27, #28, #29, #30,
+// #31, #32, #33, #34, #35, #36, #37, #38, #39, #40,
+// #41.
+//
+// Modifications:
+//   3: empty hexes f7, g7 not used
+//  11: black move = 4 (first) is an unnecessary option
+//  11: black move = 26: pattern 17 is called, should be 19
+//  14: black move = 15 is an unnecessary option
+//  16: black move = 11 is an unnecessary option
+//  17: black move = 9 is an unnecessary option
+//  19: black move = 11 is an unnecessary option
+//  20: black move = 4 (first) is an unnecessary option
+//
+// Patterns with variations:
+//  2ab (merged), 2c, 2d
+//  25ab (merged)
+//  32a, 32b
+//
+
+(boardsize 7)
+
+( pattern2ab
+  // called by: 1, 2d, 3-8, 10-29, 31-37, 40-41
+  ((b5 d4))
+  (c4 c5)
+  (b5 d4)
+
+  [(c4) (c5)]
+)
+
+( pattern2c
+  // called by: 
+  ((c5 d4 d6 e4))
+  (c6 e5)
+  (c5 d4 d6 e4)
+
+  [(c6) (e5)]
+)
+
+( pattern2d
+  // called by: 
+  ((TL b7))
+  (a5 a6 a7 b6)
+  (TL b5 b7)
+
+  [(a7)
+   (b6 [(pattern2ab (a5 a6) (TL b5))])
+  ]
+)
+
+( pattern18
+  // called by: 9
+  ((TL c4 d4) (b6 c4 d4))
+  (a3 a4 b3 b4 b5 c3)
+  (TL b6 c4 d4)
+
+  [(b5)
+   (b3 [(pattern2ab (a3 a4) (TL b3))]
+       [(pattern2ab (b4 c3) (b3 c4))])
+  ]
+)
+
+( pattern9
+  // called by: 1, 3, 5, 8, 10-12, 35, 40-41
+  ((TL d4) (b6 d4))
+  (a3 a4 b3 b4 b5 c3 c4 c5)
+  (TL b6 d4)
+
+  [(c5)
+   (c4 [(pattern18 (a3 a4 b3 b4 b5 c3) (TL b6 c4 d4))])
+  ]
+)
+
+( pattern13
+  // called by: 3-8, 10, 12, 20, 22, 29, 36-37
+  ((e4 BR))
+  (e5 f3 f4 f5 g2 g3 g4 g5)
+  (e4 BR)
+
+  [(f3 [(pattern2ab (g2 g3) (f3 BR))])
+   (f5 [(pattern2ab (e5 f4) (e4 f5))]
+       [(pattern2ab (g4 g5) (f5 BR))])
+  ]
+)
+
+( pattern7
+  // called by: 1, 11, 35, 40-41
+  ((TL c6) (TL d4))
+  (a2 a3 a4 a5 a7 b2 b3 b4 b6 b7 c2 c3 c4 d3)
+  (TL c6 d4)
+
+  [(a7 [(pattern2ab (b6 b7) (a7 c6))])
+   (c3 [(pattern2ab (c4 d3) (c3 d4))]
+       [(pattern13 (c2 b4 b3 b2 a5 a4 a3 a2) (c3 TL))])
+  ]
+)
+
+( pattern23
+  // called by: 12, 20, 29, 36, 37
+  ((TL b5 c4 d4))
+  (a3 a4 a6 b3 b4 c3)
+  (TL b5 c4 d4)
+
+  [(a6)
+   (b3 [(pattern2ab (a3 a4) (TL b3))]
+       [(pattern2ab (b4 c3) (b3 c4))])
+  ]
+)
+
+( pattern6
+  // called by: 1, 11, 35, 40-41
+  ((TL c5 d4))
+  (a2 a3 a4 a5 a6 a7 b2 b3 b4 b6 c2 c3 c4 d3)
+  (TL c5 d4)
+
+  [(b6 [(pattern2ab (a6 a7) (TL b6))])
+   (c3 [(pattern2ab (c4 d3) (c3 d4))]
+       [(pattern13 (c2 b4 b3 b2 a5 a4 a3 a2) (c3 TL))])
+  ]
+)
+
+( pattern25ab
+ // called by: 15, 22, 30
+ ((b3 b5 c5 d4))
+ (b4 c3 c4 d3)
+ (b3 b5 c5 d4)
+
+  [(b4)
+   (c3 [(pattern2ab (c4 d3) (c3 d4))])
+  ]
+)
+
+( pattern30
+  // called by: 21
+  ((b2 b4 c4 d4 e3))
+  (b3 c2 c3 d2 d3 e2)
+  (b2 b4 c4 d4 e3)
+
+  [(b3)
+   (c2 [(pattern25ab (c3 d2 d3 e2) (c2 c4 d4 e3))])
+  ]
+)
+
+( pattern21
+  // called by: 22
+  ((TL b4 c4 d4 e3))
+  (a2 a3 a5 b2 b3 c2 c3 d2 d3 e2)
+  (TL b4 c4 d4 e3)
+
+  [(a5)
+   (b2 [(pattern2ab (a2 a3) (TL b2))]
+       [(pattern30 (b3 c2 c3 d2 d3 e2) (b2 b4 c4 d4 e3))])
+  ]
+)
+
+( pattern22
+  // called by: 12, 20, 29, 36, 37
+  ((TL c4 d4 e3))
+  (a1 a2 a3 a4 a5 b1 b2 b3 b4 c1 c2 c3 d2 d3 e2)
+  (TL c4 d4 e3)
+
+  [(b4 [(pattern2ab (a4 a5) (TL b4))])
+   (c2 [(pattern13 (c1 b3 b2 b1 a4 a3 a2 a1) (c2 TL))]
+       [(pattern25ab (c3 d2 d3 e2) (c2 c4 d4 e3))])
+   (b4 [(pattern21 (a2 a3 a5 b2 b3 c2 c3 d2 d3 e2) (TL b4 c4 d4 e3))])
+  ]
+)
+
+( pattern15
+  // called by: 4
+  ((TL b5 c5 d4))
+  (a3 a4 a6 b3 b4 c3 c4 d3)
+  (TL b5 c5 d4)
+
+  [(a6)
+   (b3 [(pattern25ab (b4 c3 c4 d3) (b3 b5 c5 d4))]
+       [(pattern2ab (a3 a4) (TL b3))])
+  ]
+)
+
+( pattern4
+  // called by: 1, 11, 35, 40-41
+  ((TL c5 d4))
+  (a2 a3 a4 a5 a6 b2 b3 b4 b5 c2 c3 c4 d3)
+  (TL c5 d4)
+
+  [(b5 [(pattern2ab (a5 a6) (TL b5))])
+   (c3 [(pattern2ab (c4 d3) (c3 d4))]
+       [(pattern13 (c2 b4 b3 b2 a5 a4 a3 a2) (c3 TL))])
+   (b5 [(pattern15 (a3 a4 a6 b3 b4 c3 c4 d3) (TL b5 c5 d4))])
+  ]
+)
+
+( pattern32b
+  // called by: 31, 37, 41
+  ((TL d6) (b5 d6) (d4 d6 e3 f3))
+  (a7 b6 b7 c6 c7 d5)
+  (TL b5 d4 d6 e3 f3)
+
+  [(d5)
+   (b7 [(pattern2ab (c6 c7) (b7 d6))]
+       [(a7) (b6)])
+  ]
+)
+
+( pattern31
+  // called by: 24, 36, 37, 40
+  ((TL f5) (b5 f5) (d4 e3 f3 f5))
+  (a7 b6 b7 c6 c7 d5 d6 e5 e6 f4)
+  (TL b5 d4 e3 f3 f5)
+
+  [(f4)
+   (d6 [(pattern32b (a7 b6 b7 c6 c7 d5) (TL b5 d4 d6 e3 f3))]
+       [(pattern2ab (e5 e6) (d6 f5))])
+  ]
+)
+
+( pattern24
+  // called by: 14, 29, 35
+  ((TL BR) (b5 BR) (d4 e3 f3 BR))
+  (a7 b6 b7 c6 c7 d5 d6 e5 e6 f4 f5 g3 g4 g5)
+  (TL b5 d4 e3 f3 BR)
+
+  [(g3)
+   (f5 [(pattern2ab (g4 g5) (f5 BR))]
+       [(pattern31 (a7 b6 b7 c6 c7 d5 d6 e5 e6 f4) (TL b5 d4 e3 f3 f5))])
+  ]
+)
+
+( pattern14
+  // called by: 3, 11, 20
+  ((TL BR) (b5 BR) (d4 e3 BR))
+  (a7 b6 b7 c6 c7 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5)
+  (TL b5 d4 e3 BR)
+
+  [(f2 [(pattern2ab (g1 g2) (f2 BR))])
+   (f3 [(pattern2ab (g2 g3) (f3 BR))])
+   (f3 [(pattern24 (a7 b6 b7 c6 c7 d5 d6 e5 e6 f4 f5 g3 g4 g5) (TL b5 d4 e3 f3 BR))])
+  ]
+)
+
+( pattern3
+  // called by: 1, 12
+  ((TL BR) (b5 BR) (d4 BR))
+  (a7 b6 b7 c6 c7 d5 d6 e3 e4 e5 e6 e7 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6)
+  (TL b5 d4 BR)
+
+  [ (f3 [(pattern2ab (e3 e4) (d4 f3))]
+        [(pattern2ab (g2 g3) (f3 BR))])
+    (e5 [(pattern2ab (d5 e4) (d4 e5))]
+        [(pattern13 (e6 f4 f5 f6 g3 g4 g5 g6) (e5 BR))])
+    (f2 [(pattern2ab (g1 g2) (f2 BR))]
+        [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))])
+    (e3 [(pattern14 (a7 b6 b7 c6 c7 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (TL b5 d4 e3 BR))])
+  ]
+)
+
+( pattern33
+  // called by: 27, 40
+  ((c6 f5) (d4 e3 f3 f5))
+  (d6 e5 e6 f4)
+  (c6 d4 e3 f3 f5)
+
+  [(f4)
+   (d6 [(pattern2ab (e5 e6) (d6 f5))])
+  ]
+)
+
+( pattern27
+  // called by: 17, 35
+  ((c6 BR) (d4 e3 f3 BR))
+  (d6 e5 e6 f4 f5 g3 g4 g5)
+  (c6 d4 e3 f3 BR)
+
+  [(g3)
+   (f5 [(pattern33 (d6 e5 e6 f4) (c6 d4 e3 f3 f5))]
+       [(pattern2ab (g4 g5) (f5 BR))])
+  ]
+)
+
+( pattern17
+  // called by: 8, 11
+  ((c6 BR) (d4 e3 BR))
+  (d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5)
+  (c6 d4 e3 BR)
+
+  [(f2 [(pattern2ab (g1 g2) (f2 BR))])
+   (f3 [(pattern2ab (g2 g3) (f3 BR))])
+   (f3 [(pattern27 (d6 e5 e6 f4 f5 g3 g4 g5) (c6 d4 e3 f3 BR))])
+  ]
+)
+
+( pattern8
+  // called by: 1
+  ((c6 BR) (d4 BR))
+  (d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6)
+  (c6 d4 BR)
+
+  [(f3 [(pattern2ab (e3 e4) (d4 f3))]
+       [(pattern2ab (g2 g3) (f3 BR))])
+   (e5 [(d6) (e4)]
+       [(pattern13 (e6 f4 f5 f6 g3 g4 g5 g6) (e5 BR))])
+   (f2 [(pattern2ab (g1 g2) (f2 BR))]
+       [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))])
+   (e3 [(pattern17 (d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (c6 d4 e3 BR))])
+  ]
+)
+
+( pattern34
+  // called by: 28, 40
+  ((b6 f5) (d4 e3 f3 f5))
+  (c6 d5 d6 e5 e6 f4)
+  (b6 d4 e3 f3 f5)
+
+  [(f4)
+   (d6 [(pattern2ab (e5 e6) (d6 f5))]
+       [(c6) (d5)])
+  ]
+)
+
+( pattern28
+  // called by: 19, 35
+  ((b6 BR) (d4 e3 f3 BR))
+  (c6 d5 d6 e5 e6 f4 f5 g3 g4 g5)
+  (b6 d4 e3 f3 BR)
+
+  [(g3)
+   (f5 [(pattern2ab (g4 g5) (f5 BR))]
+       [(pattern34 (c6 d5 d6 e5 e6 f4) (b6 d4 e3 f3 f5))])
+  ]
+)
+
+( pattern19
+  // called by: 10
+  // ERROR in YANG: also called by 11
+  ((b6 BR) (d4 e3 BR))
+  (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5)
+  (b6 d4 e3 BR)
+
+  [(f2 [(pattern2ab (g1 g2) (f2 BR))])
+   (f3 [(pattern2ab (g2 g3) (f3 BR))])
+   (f3 [(pattern28 (c6 d5 d6 e5 e6 f4 f5 g3 g4 g5) (b6 d4 e3 f3 BR))])
+  ]
+)
+
+( pattern32a
+  // called by: 26, 40
+  ((c5 d4 e3 f3 f5))
+  (c6 d5 d6 e5 e6 f4)
+  (c5 d4 e3 f3 f5)
+
+  [(f4)
+   (d6 [(pattern2ab (e5 e6) (d6 f5))]
+       [(pattern2ab (c6 d5) (c5 d6))])
+  ]
+)
+
+( pattern26
+  // called by: 16, 35, 39
+  ((c5 d4 e3 f3 BR))
+  (c6 d5 d6 e5 e6 f4 f5 g3 g4 g5)
+  (c5 d4 e3 f3 BR)
+
+  [(g3)
+   (f5 [(pattern2ab (g4 g5) (f5 BR))]
+       [(pattern32a (c6 d5 d6 e5 e6 f4) (c5 d4 e3 f3 f5))])
+  ]
+)
+
+( pattern16
+  // called by: 5, 11, 35, 40-41
+  ((c5 d4 e3 BR))
+  (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5)
+  (c5 d4 e3 BR)
+
+  [(f2 [(pattern2ab (g1 g2) (f2 BR))])
+   (f3 [(pattern2ab (g2 g3) (f3 BR))])
+   (f3 [(pattern26 (c6 d5 d6 e5 e6 f4 f5 g3 g4 g5) (c5 d4 e3 f3 BR))])
+  ]
+)
+
+( pattern39
+  // called by: 38
+  ((f1 f2 BR))
+  (c6 d5 d6 e5 e6 f3 f4 f5 g2 g3 g4 g5)
+  (c5 d4 e4 f1 f2 BR)
+
+  [(g2)
+   (f3 [(pattern26 (c6 d5 d6 e5 e6 f4 f5 g3 g4 g5) (c5 d4 e3 f3 BR))])
+  ]
+)
+
+( pattern38
+  // called by: 37, 41
+  ((f1 BR))
+  (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5)
+  (c5 d4 e4 f1 BR)
+
+  [(g1)
+   (f2 [(pattern39 (c6 d5 d6 e5 e6 f3 f4 f5 g2 g3 g4 g5) (c5 d4 e4 f1 f2 BR))])
+  ]
+)
+
+( pattern5
+  // called by: 1, 11, 40-41
+  ((c5 d4 BR))
+  (c6 d5 d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6)
+  (c5 d4 BR)
+
+  [(f3 [(pattern2ab (e3 e4) (d4 f3))]
+       [(pattern2ab (g2 g3) (f3 BR))])
+   (e5 [(pattern2ab (d5 e4) (d4 e5))]
+       [(pattern13 (e6 f4 f5 f6 g3 g4 g5 g6) (e5 BR))])
+   (f2 [(pattern2ab (g1 g2) (f2 BR))]
+       [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))])
+   (e3 [(pattern16 (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (c5 d4 e3 BR))])
+  ]
+)
+
+( pattern37
+  // called by: 36, 41
+  ((d2 BR))
+  (c6 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7)
+  (c5 d2 d4 e4 BR)
+
+  [(d3 [(pattern13 (e5 f3 f4 f5 g2 g3 g4 g5) (e4 BR))])
+   (f3 [(pattern2ab (g2 g3) (f3 BR))]
+       [(pattern32b (g1 f2 f1 e2 e1 d3) (BR f3 d4 d2 c5 b5))])
+   (d3 [(pattern22 (g7 g6 g5 g4 g3 f7 f6 f5 f4 e7 e6 e5 d6 d5 c6) (BR e4 d4 c5))])
+   (f3 [(pattern32b (g1 f2 f1 e2 e1 d3) (BR f3 d4 d2 c5 b5))]
+       [(pattern23 (g5 g4 g2 f5 f4 e5) (BR f3 e4 d4))])
+   (f1 [(pattern2ab (e1 e2) (d2 f1))]
+       [(pattern38 (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (c5 d4 e4 f1 BR))])
+  ]
+)
+
+( pattern36
+  // called by: 29, 40
+  ((b3 BR))
+  (b4 c2 c3 c6 d2 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7)
+  (b3 b5 c5 d4 e4 BR)
+
+  [(b4 [(pattern13 (e5 f3 f4 f5 g2 g3 g4 g5) (e4 BR))])
+   (f3 [(pattern2ab (g2 g3) (f3 BR))]
+       [(pattern31 (g1 f2 f1 e2 e1 d3 d2 c3 c2 b4) (BR f3 d4 c5 b5 b3))])
+   (b4 [(pattern22 (g7 g6 g5 g4 g3 f7 f6 f5 f4 e7 e6 e5 d6 d5 c6) (BR e4 d4 c5))])
+   (f3 [(pattern23 (g5 g4 g2 f5 f4 e5) (BR f3 e4 d4))]
+       [(pattern31 (g1 f2 f1 e2 e1 d3 d2 c3 c2 b4) (BR f3 d4 c5 b5 b3))])
+   (d2 [(pattern2ab (c2 c3) (b3 d2))]
+       [(pattern37 (c6 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (c5 d2 d4 e4 BR))])
+  ]
+)
+
+( pattern29
+  // called by: 20, 35
+  ((TL BR))
+  (a3 a4 a5 b3 b4 c2 c3 c6 d2 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7)
+  (TL b5 c5 d4 e4 BR)
+
+  [(a5 [(pattern13 (e5 f3 f4 f5 g2 g3 g4 g5) (e4 BR))])
+   (f3 [(pattern2ab (g2 g3) (f3 BR))]
+       [(pattern24 (g1 f2 f1 e2 e1 d3 d2 c3 c2 b4 b3 a5 a4 a3) (BR f3 d4 c5 b5 TL))])
+   (a5 [(pattern22 (g7 g6 g5 g4 g3 f7 f6 f5 f4 e7 e6 e5 d6 d5 c6) (BR e4 d4 c5))])
+   (f3 [(pattern23 (g5 g4 g2 f5 f4 e5) (BR f3 e4 d4))]
+       [(pattern24 (g1 f2 f1 e2 e1 d3 d2 c3 c2 b4 b3 a5 a4 a3) (BR f3 d4 c5 b5 TL))])
+   (b3 [(pattern2ab (a3 a4) (TL b3))]
+       [(pattern36 (b4 c2 c3 c6 d2 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (b3 b5 c5 d4 e4 BR))])
+  ]
+)
+
+( pattern20
+  // called by: 11-12
+  ((TL BR))
+  (a3 a4 a5 a6 a7 b3 b4 b5 b6 b7 c2 c3 c6 d2 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7)
+  (TL c5 d4 e4 BR)
+
+  [(b6 [(pattern2ab (a6 a7) (TL b6))]
+       [(pattern13 (e5 f3 f4 f5 g2 g3 g4 g5) (e4 BR))])
+   (b5 [(pattern2ab (a5 a6) (TL b5))]
+       [(pattern13 (e5 f3 f4 f5 g2 g3 g4 g5) (e4 BR))])
+   (f3 [(pattern2ab (g2 g3) (f3 BR))]
+       [(pattern14 (g1 f2 f1 e2 e1 d3 d2 c3 c2 b6 b5 b4 b3 a7 a6 a5 a4 a3) (BR f3 d4 c5 TL))])
+   (a6 [(pattern2ab (b5 b6) (a6 c5))]
+       [(pattern22 (g7 g6 g5 g4 g3 f7 f6 f5 f4 e7 e6 e5 d6 d5 c6) (BR e4 d4 c5))])
+   (f3 [(pattern23 (g5 g4 g2 f5 f4 e5) (BR f3 e4 d4))]
+       [(pattern14 (g1 f2 f1 e2 e1 d3 d2 c3 c2 b6 b5 b4 b3 a7 a6 a5 a4 a3) (BR f3 d4 c5 TL))])
+   (b5 [(pattern29 (a3 a4 a5 b3 b4 c2 c3 c6 d2 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (TL b5 c5 d4 e4 BR))])
+  ]
+)
+
+( pattern10
+  // called by: 1
+  ((b6 BR) (d4 BR))
+  (c6 d5 d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6)
+  (b6 d4 BR)
+
+  [(f3 [(pattern2ab (e3 e4) (d4 f3))]
+       [(pattern2ab (g2 g3) (f3 BR))])
+   (e5 [(pattern2ab (d5 e4) (d4 e5))]
+       [(pattern13 (e6 f4 f5 f6 g3 g4 g5 g6) (e5 BR))])
+   (f2 [(pattern2ab (g1 g2) (f2 BR))]
+       [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))])
+   (e3 [(pattern19 (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (b6 d4 e3 BR))])
+  ]
+)
+
+( pattern41
+  // called by: 40
+  ((d2 BR))
+  (c6 d3 d5 d6 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7)
+  (b5 c5 d2 d4 BR)
+
+  [(d3 [(pattern5 (c6 d5 d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (c5 d4 BR))])
+   (f3 [(pattern2ab (e3 e4) (d4 f3))]
+       [(pattern2ab (g2 g3) (f3 BR))]
+       [(pattern32b (g1 f2 f1 e2 e1 d3) (BR f3 d4 d2 c5 b5))])
+   (e3 [(pattern2ab (d3 e2) (d2 e3))]
+       [(pattern4 (g6 g5 g4 g3 g2 f6 f5 f4 f3 e6 e5 e4 d5) (BR e3 d4))])
+   (e2 [(pattern2ab (d3 e3) (d4 e2))]
+       [(pattern7 (g6 g5 g4 g3 g1 f6 f5 f4 f2 f1 e6 e5 e4 d5) (BR e2 d4))])
+   (f2 [(pattern2ab (g1 g2) (f2 BR))]
+       [(d3) (e2)]
+       [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))])
+   (e3 [(pattern2ab (d3 e2) (d2 e3))]
+       [(pattern6 (g6 g5 g4 g3 g2 g1 f6 f5 f4 f2 e6 e5 e4 d5) (BR e3 d4))])
+   (e4 [(pattern37 (c6 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (c5 d2 d4 e4 BR))])
+   (e3 [(pattern2ab (d3 e2) (d2 e3))]
+       [(pattern16 (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (c5 d4 e3 BR))])
+   (f1 [(pattern2ab (e1 e2) (d2 f1))]
+       [(e3) (e4)]
+       [(pattern38 (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (c5 d4 e4 f1 BR))])
+  ]
+)
+
+( pattern40
+  // called by: 35
+  ((b3 b5 c5 d4 BR) (b3 BR))
+  (b4 c2 c3 c6 d2 d3 d5 d6 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7)
+  (b3 b5 c5 d4 BR)
+
+  [(b4 [(pattern5 (c6 d5 d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (c5 d4 BR))])
+   (f3 [(pattern2ab (e3 e4) (d4 f3))]
+       [(pattern2ab (g2 g3) (f3 BR))]
+       [(pattern31 (g1 f2 f1 e2 e1 d3 d2 c3 c2 b4) (BR f3 d4 c5 b5 b3))])
+   (e3 [(pattern32a (e2 d3 d2 c3 c2 b4) (e3 d4 c5 b5 b3))]
+       [(pattern4 (g6 g5 g4 g3 g2 f6 f5 f4 f3 e6 e5 e4 d5) (BR e3 d4))])
+   (e2 [(pattern2ab (d3 e3) (d4 e2))]
+       [(pattern7 (g6 g5 g4 g3 g1 f6 f5 f4 f2 f1 e6 e5 e4 d5) (BR e2 d4))]
+       [(pattern33 (d2 c3 c2 b4) (e2 d4 c5 b5 b3))])
+   (f2 [(pattern2ab (g1 g2) (f2 BR))]
+       [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))]
+       [(pattern34 (e2 d3 d2 c3 c2 b4) (f2 d4 c5 b5 b3))])
+   (e3 [(pattern32a (e2 d3 d2 c3 c2 b4) (e3 d4 c5 b5 b3))]
+       [(pattern6 (g6 g5 g4 g3 g2 g1 f6 f5 f4 f2 e6 e5 e4 d5) (BR e3 d4))])
+   (e4 [(pattern36 (b4 c2 c3 c6 d2 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (b3 b5 c5 d4 e4 BR))])
+   (e3 [(pattern32a (e2 d3 d2 c3 c2 b4) (e3 d4 c5 b5 b3))]
+       [(pattern16 (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (c5 d4 e3 BR))])
+   (d2 [(pattern2ab (c2 c3) (b3 d2))]
+       [(pattern41 (c6 d3 d5 d6 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (b5 c5 d2 d4 BR))])
+  ]
+)
+
+( pattern35
+  // called by: 11
+  ((TL BR))
+  (a3 a4 a5 b3 b4 c2 c3 c6 d2 d3 d5 d6 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7)
+  (TL b5 c5 d4 BR)
+
+  [(a5 [(pattern5 (c6 d5 d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (c5 d4 BR))])
+   (f3 [(pattern2ab (e3 e4) (d4 f3))]
+       [(pattern2ab (g2 g3) (f3 BR))]
+       [(pattern24 (g1 f2 f1 e2 e1 d3 d2 c3 c2 b4 b3 a5 a4 a3) (BR f3 d4 c5 b5 TL))])
+   (e3 [(pattern26 (e2 d3 d2 c3 c2 b4 b3 a5 a4 a3) (e3 d4 c5 b5 TL))]
+       [(pattern4 (g6 g5 g4 g3 g2 f6 f5 f4 f3 e6 e5 e4 d5) (BR e3 d4))])
+   (e2 [(pattern2ab (d3 e3) (d4 e2))]
+       [(pattern7 (g6 g5 g4 g3 g1 f6 f5 f4 f2 f1 e6 e5 e4 d5) (BR e2 d4))]
+       [(pattern27 (d2 c3 c2 b4 b3 a5 a4 a3) (e2 d4 c5 b5 TL))])
+   (f2 [(pattern2ab (g1 g2) (f2 BR))]
+       [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))]
+       [(pattern28 (e2 d3 d2 c3 c2 b4 b3 a5 a4 a3) (f2 d4 c5 b5 TL))])
+   (e3 [(pattern26 (e2 d3 d2 c3 c2 b4 b3 a5 a4 a3) (e3 d4 c5 b5 TL))]
+       [(pattern6 (g6 g5 g4 g3 g2 g1 f6 f5 f4 f2 e6 e5 e4 d5) (BR e3 d4))])
+   (e4 [(pattern29 (a3 a4 a5 b3 b4 c2 c3 c6 d2 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (TL b5 c5 d4 e4 BR))])
+   (e3 [(pattern26 (e2 d3 d2 c3 c2 b4 b3 a5 a4 a3) (e3 d4 c5 b5 TL))]
+       [(pattern16 (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (c5 d4 e3 BR))])
+   (b3 [(pattern2ab (a3 a4) (TL b3))]
+       [(pattern40 (b4 c2 c3 c6 d2 d3 d5 d6 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (b3 b5 c5 d4 BR))])
+  ]
+)
+
+( pattern11
+  // called by: 1
+  ((TL BR))
+  (a3 a4 a5 a6 a7 b3 b4 b5 b6 b7 c2 c3 c6 d2 d3 d5 d6 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7)
+  (TL c5 d4 BR)
+
+  [(b6 [(pattern2ab (a6 a7) (TL b6))]
+       [(pattern5 (c6 d5 d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (c5 d4 BR))])
+   (b5 [(pattern2ab (a5 a6) (TL b5))]
+       [(pattern5 (c6 d5 d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (c5 d4 BR))])
+   (f3 [(pattern2ab (e3 e4) (d4 f3))]
+       [(pattern2ab (g2 g3) (f3 BR))]
+       [(pattern14 (g1 f2 f1 e2 e1 d3 d2 c3 c2 b6 b5 b4 b3 a7 a6 a5 a4 a3) (BR f3 d4 c5 TL))])
+   (e3 [(pattern4 (g6 g5 g4 g3 g2 f6 f5 f4 f3 e6 e5 e4 d5) (BR e3 d4))]
+       [(pattern16 (e2 d3 d2 c3 c2 b6 b5 b4 b3 a7 a6 a5 a4 a3) (e3 d4 c5 TL))])
+
+   (e2 [(pattern2ab (d3 e3) (d4 e2))]
+       [(pattern17 (d2 c3 c2 b6 b5 b4 b3 a7 a6 a5 a4 a3) (e2 d4 c5 TL))]
+       [(pattern7 (g6 g5 g4 g3 g1 f6 f5 f4 f2 f1 e6 e5 e4 d5) (BR e2 d4))])
+
+   // now calls pattern19 instead
+   (f2 [(pattern2ab (g1 g2) (f2 BR))]
+       [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))]
+   //  [(pattern17 (d2 c3 c2 b6 b5 b4 b3 a7 a6 a5 a4 a3) (e2 d4 c5 TL))])
+       [(pattern19 (e2 d3 d2 c3 c2 b6 b5 b4 b3 a7 a6 a5 a4 a3) (f2 d4 c5 TL))])
+
+   (e3 [(pattern6 (g6 g5 g4 g3 g2 g1 f6 f5 f4 f2 e6 e5 e4 d5) (BR e3 d4))]
+       [(pattern16 (e2 d3 d2 c3 c2 b6 b5 b4 b3 a7 a6 a5 a4 a3) (e3 d4 c5 TL))])
+   (e3 [(pattern16 (c6 d5 d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (c5 d4 e3 BR))]
+       [(pattern16 (e2 d3 d2 c3 c2 b6 b5 b4 b3 a7 a6 a5 a4 a3) (e3 d4 c5 TL))])
+   (e4 [(pattern20 (a3 a4 a5 a6 a7 b3 b4 b5 b6 b7 c2 c3 c6 d2 d3 d5 d6 e1 e2 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (TL c5 d4 e4 BR))])
+   (b5 [(pattern35 (a3 a4 a5 b3 b4 c2 c3 c6 d2 d3 d5 d6 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (TL b5 c5 d4 BR))])
+  ]
+)
+
+( pattern12
+  // called by: 1
+  ((TL BR))
+  (a1 a2 a3 a4 a5 a6 a7 b1 b2 b3 b4 b5 b6 b7 c1 c2 c3 c6 c7 d1 d2 d3 d5 d6 d7 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7)
+  (TL c4 d4 BR)
+
+  [(f3 [(pattern2ab (e3 e4) (d4 f3))]
+       [(pattern2ab (g2 g3) (f3 BR))]
+       [(pattern13 (c3 b5 b4 b3 a6 a5 a4 a3) (c4 TL))])
+   (e5 [(pattern2ab (d5 e4) (d4 e5))]
+       [(pattern13 (e6 f4 f5 f6 g3 g4 g5 g6) (e5 BR))]
+       [(pattern13 (c3 b5 b4 b3 a6 a5 a4 a3) (c4 TL))])
+   (b5 [(pattern2ab (a5 a6) (TL b5))]
+       [(pattern3 (a7 b6 b7 c6 c7 d5 d6 e3 e4 e5 e6 e7 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (TL b5 d4 BR))])
+   (f2 [(pattern2ab (g1 g2) (f2 BR))]
+       [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))]
+       [(pattern13 (c3 b5 b4 b3 a6 a5 a4 a3) (c4 TL))])
+   (e3 [(pattern20 (g5 g4 g3 g2 g1 f5 f4 f3 f2 f1 e6 e5 e2 d6 d5 d3 d2 c7 c6 c3 c2 c1 b7 b6 b5 b4 b3 b2 b1 a7 a6 a5 a4 a3 a2 a1) (BR e3 d4 c4 TL))])
+   (e3 [(pattern13 (e4 f2 f3 f4 g1 g2 g3 g4) (e3 BR))]
+       [(pattern22 (a1 a2 a3 a4 a5 b1 b2 b3 b4 c1 c2 c3 d2 d3 e2) (TL c4 d4 e3))])
+   (b5 [(pattern23 (a3 a4 a6 b3 b4 c3) (TL b5 c4 d4))]
+       [(pattern3 (a7 b6 b7 c6 c7 d5 d6 e3 e4 e5 e6 e7 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (TL b5 d4 BR))])
+  ]
+)
+
+( pattern1
+  // called by: n/a
+  ((TL BR))
+  (a1 a2 a3 a4 a5 a6 a7 b1 b2 b3 b4 b5 b6 b7 c1 c2 c3 c4 c5 c6 c7 d1 d2 d3 d5 d6 d7 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7)
+  (TL d4 BR)
+
+  [(b5 [(pattern2ab (a5 a6) (TL b5))]
+       [(pattern2ab (c4 c5) (b5 d4))]
+       [(pattern3 (a7 b6 b7 c6 c7 d5 d6 e3 e4 e5 e6 e7 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (TL b5 d4 BR))])
+   (f3 [(pattern2ab (e3 e4) (d4 f3))]
+       [(pattern2ab (g2 g3) (f3 BR))]
+       [(pattern3 (g1 f2 f1 e2 e1 d3 d2 c5 c4 c3 c2 c1 b6 b5 b4 b3 b2 a7 a6 a5 a4 a3 a2) (BR f3 d4 TL))])
+   (c5 [(pattern4 (a2 a3 a4 a5 a6 b2 b3 b4 b5 c2 c3 c4 d3) (TL c5 d4))]
+       [(pattern5 (c6 d5 d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (c5 d4 BR))])
+   (c5 [(pattern6 (a2 a3 a4 a5 a6 a7 b2 b3 b4 b6 c2 c3 c4 d3) (TL c5 d4))]
+       [(pattern5 (c6 d5 d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (c5 d4 BR))])
+   (c6 [(pattern2ab (c5 d5) (c6 d4))]
+       [(pattern7 (a2 a3 a4 a5 a7 b2 b3 b4 b6 b7 c2 c3 c4 d3) (TL c6 d4))]
+       [(pattern8 (d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (c6 d4 BR))])
+   (b6 [(pattern2ab (a6 a7) (TL b6))]
+       [(pattern9 (a3 a4 b3 b4 b5 c3 c4 c5) (TL b6 d4))]
+       [(pattern10 (c6 d5 d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (b6 d4 BR))])
+   (c5 [(pattern11 (a3 a4 a5 a6 a7 b3 b4 b5 b6 b7 c2 c3 c6 d2 d3 d5 d6 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (TL c5 d4 BR))])
+   (c4 [(pattern12 (a1 a2 a3 a4 a5 a6 a7 b1 b2 b3 b4 b5 b6 b7 c1 c2 c3 c6 c7 d1 d2 d3 d5 d6 d7 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 g6 g7) (TL c4 d4 BR))])
+   // now the second (symmetric) half
+   (f3 [(pattern2ab (g3 g2) (BR f3))]
+       [(pattern2ab (e4 e3) (f3 d4))]
+       [(pattern3 (g1 f2 f1 e2 e1 d3 d2 c5 c4 c3 c2 c1 b6 b5 b4 b3 b2 a7 a6 a5 a4 a3 a2) (BR f3 d4 TL))])
+   (b5 [(pattern2ab (c5 c4) (d4 b5))]
+       [(pattern2ab (a6 a5) (b5 TL))]
+       [(pattern3 (a7 b6 b7 c6 c7 d5 d6 e3 e4 e5 e6 e7 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6) (TL b5 d4 BR))])
+   (e3 [(pattern4 (g6 g5 g4 g3 g2 f6 f5 f4 f3 e6 e5 e4 d5) (BR e3 d4))]
+       [(pattern5 (e2 d3 d2 c5 c4 c3 c2 b6 b5 b4 b3 b2 a7 a6 a5 a4 a3 a2) (e3 d4 TL))])
+   (e3 [(pattern6 (g6 g5 g4 g3 g2 g1 f6 f5 f4 f2 e6 e5 e4 d5) (BR e3 d4))]
+       [(pattern5 (e2 d3 d2 c5 c4 c3 c2 b6 b5 b4 b3 b2 a7 a6 a5 a4 a3 a2) (e3 d4 TL))])
+   (e2 [(pattern2ab (e3 d3) (e2 d4))]
+       [(pattern7 (g6 g5 g4 g3 g1 f6 f5 f4 f2 f1 e6 e5 e4 d5) (BR e2 d4))]
+       [(pattern8 (d2 c5 c4 c3 c2 b6 b5 b4 b3 b2 a7 a6 a5 a4 a3 a2) (e2 d4 TL))])
+   (f2 [(pattern2ab (g2 g1) (BR f2))]
+       [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))]
+       [(pattern10 (e2 d3 d2 c5 c4 c3 c2 b6 b5 b4 b3 b2 a7 a6 a5 a4 a3 a2) (f2 d4 TL))])
+   (e3 [(pattern11 (g5 g4 g3 g2 g1 f5 f4 f3 f2 f1 e6 e5 e2 d6 d5 d3 d2 c7 c6 c5 c4 c3 c2 c1 b7 b6 b5 b4 b3 b2 b1 a7 a6 a5 a4 a3 a2 a1) (BR e3 d4 TL))])
+   (e4 [(pattern12 (g7 g6 g5 g4 g3 g2 g1 f7 f6 f5 f4 f3 f2 f1 e7 e6 e5 e2 e1 d7 d6 d5 d3 d2 d1 c7 c6 c5 c4 c3 c2 c1 b7 b6 b5 b4 b3 b2 b1 a7 a6 a5 a4 a3 a2 a1) (BR e4 d4 TL))])
+  ]
+)

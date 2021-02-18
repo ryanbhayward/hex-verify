@@ -1,0 +1,100 @@
+From broderic@cs.ualberta.ca Mon Dec 19 12:52:05 2005
+Subject: Re: verifier
+
+On Mon Dec 19, 2005 at 11:12:54AM -0700, Ryan Hayward wrote:
+> B,
+> 
+> did you want to get together sometime this week?
+> I'm a bit under the weather, I was thinking
+> maybe Wednesday...
+
+Sure, Wednesday sounds fine. 
+ 
+> R
+> 
+> On Sun, Dec 18, 2005 at 02:25:44PM -0700, Broderick Arneson wrote:
+> > On Sun Dec 18, 2005 at 12:42:48PM -0700, Ryan Hayward wrote:
+> > > B,
+> > > 
+> > > here's another strategy in the new format...
+> > > 
+> > > it's interesting, because
+> > > I've condensed it to the point
+> > > that proving that it's a winning strategy
+> > > will be more complicated than I originally described...
+> > 
+> > Heh, just when I got it working for the simpler version. :)
+> > I agree though, the other format would be unwieldly to type out. 
+> > 
+> > Isn't the proof of correctness of this new format similar to the
+> > old one?  I'm probably missing something obvious, though. 
+> > 
+> > Suppose we have a node P, such that (P [S1 S2] [T1 T2]), and
+> > assume by induction that S1,S2,T1,T2 are valid p1 proofs.  
+> > Also, the intersection between S1 and S2 is empty, same for T1,T2. 
+> > 
+> > If [T1,T2] wasn't there, we could just add S1,S2 as subtrees of P
+> > and it would be valid if P didn't occur in S1 or S2.  Since the two
+> > []'s are independent ,it doesn't matter which we do first. So
+> > assume we do [S1,S2] first.  Thus we add S1,S2 as subtrees to P and
+> > call this new tree Q.
+> > Now consider (a1,...,ak) being the leaves of Q.  For each ai
+> > we add T1 and T2 as subtrees.  These (ai (T1) (T2)) trees are
+> > valid if ai does not appear in either of T1,T2.  Suppose for now
+> > that this is the case.  Then the whole tree is valid...correct?
+> > 
+> > How do we ensure that each leaf does not occur in some Ti?  
+> > Maybe ensure that (S1 \/ S2) /\ (T1 \/ T2) is empty?  Which is
+> > nothing but our standard intersection property. 
+> > 
+> > Bah, I probably messed something up, but it doesn't look too bad. :)
+> > 
+> > 
+> > If that's true then the only thing more complicated is the 
+> > side-to-side path checking, which is all messed up now.  But I think
+> > we just need to do all 2^n combinations on a [] node (basically doing
+> > the expanding to an OR tree implicitly).
+> > 
+> > (heh, this sounds similar to something you were discussing on Friday)
+> > 
+> > I see more clearly now why we could introduce things like (p1-p2 paths)
+> > as a type of node.
+> > 
+> > 
+> > > Ciao,
+> > > R
+> > > 
+> > > 1ps ::=  "("  cellLabel { 2ps }* ")"
+> > > 2ps ::= "[" 1ps 1ps {1ps}* "]"
+> > > 
+> > > example: 1ps for 3x3
+> > > 
+> > > (b2 
+> > >    [ (a3) (b3) ]
+> > >    [ (b1) (c1) ] )
+> > > 
+> > > example: 1ps for 4x4
+> > > 
+> > > (d1 [
+> > >      (c3 [(c2)(d2)]
+> > >          [(b4)(c4)])
+> > >      (b3 [(a4)(b4)]
+> > >          [(c2)
+> > > 	  (b2[(b1)(c1)])
+> > > 	  (d2[(c3)
+> > > 	      (d3[(d4)(c4)])
+> > > 	     ])])
+> > >      (d3 [(c4)(d4)]
+> > >          [(d2)
+> > > 	  (b3 [(a4)(c3)]
+> > >               [(c2)
+> > > 	       (b2 [(b1)(c1)])
+> > > 	      ])])
+> > >      ])
+> > 
+> > -- 
+> > Broderick
+
+-- 
+Broderick
+

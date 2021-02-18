@@ -1,0 +1,54 @@
+%\input{fig1}
+\def\assign{\mbox{$\leftarrow$}}
+\def\pgc{{\sc PGC}}
+\begin{figure}[hbp]
+{
+\large
+%\footnotesize
+\begin{center}
+\begin{tabular}{lllllll}
+\multicolumn{7}{l}{{\bf Algorithm \pgc}} \\
+\multicolumn{7}{l}{{\sc Input}: a 0-1 mixed integer problem $P$ 
+              and a time limit $T$.} \\
+\multicolumn{7}{l}{{\sc Output}: 
+  A $P$-feasible solution $x^*$ (null in case of failure).}\\
+        &~~~~&~~~~&~~~~&~~~~&~~~~&\\
+1.      &\multicolumn{6}{l}{$x^*$ \assign\ null, elapsedTime \assign\ 0}\\
+2.      &\multicolumn{6}{l}{construct \mLPplus\ from $P$}\\
+3.      &\multicolumn{6}{l}{find optimal solution $x^*$ of \mLPplus\ using BVRS}\\
+4.      &\multicolumn{6}{l}{if ($x^*$ or rounding of $x^*$ or truncation of $x^*$ is $P$-feasible) then return soln}\\
+5.      &\multicolumn{6}{l}{repeat}\\
+        & &\multicolumn{5}{l}{BEGIN SEARCH PHASE}\\
+6.      & & \multicolumn{5}{l}{construct a Gomory Cut $\alpha x \ge \beta$}\\
+7.      & & \multicolumn{5}{l}{atDeadEnd \assign\ false }\\
+8.      & & \multicolumn{5}{l}{repeat}\\
+9.      & & &\multicolumn{4}{l}{while ({\it Pivot Type 1} exists)}\\
+10.     & & & &\multicolumn{3}{l}{pivot,  
+         $x^*$ \assign\ resulting \mLPplus-feasible solution}\\
+11.      &  &  &  & \multicolumn{3}{l}{if ($x^*$ is $P$-feasible) then return $x^*$}\\
+%12.      &  &  &  & \multicolumn{3}{l}{if ($x^*$ satisfies $\alpha x \ge \beta$) then}\\
+12.      &  &  &  & \multicolumn{3}{l}{if ($x^*$ satisfies $\alpha x \ge \beta$) then add $\alpha x\ge \beta$ in \mLPplus\  and}\\
+13.      &  &  &  &  & \multicolumn{2}{l}{construct a resulting new Gomory Cut $\alpha x \ge \beta$}\\
+14.     & &  &\multicolumn{4}{l}{if ({\it Pivot Type 2} exists) then}\\
+15.     &  &  &  & \multicolumn{3}{l}{pivot,
+        $x^*$ \assign\ resulting \mLPplus-feasible solution}\\
+16.     &  &  &  & \multicolumn{3}{l}{if ($x^*$ is $P$-feasible) then return $x^*$}\\
+17.     &  &  &  & \multicolumn{3}{l}{if ($x^*$ satisfies $\alpha x \ge \beta$) then add $\alpha x\ge \beta$ in \mLPplus and}\\
+18.     &  &  &  &  & \multicolumn{2}{l}{construct a resulting new Gomory Cut $\alpha x \ge \beta$}\\
+19.     &  &  &\multicolumn{4}{l}{elsif atDeadEnd \assign\ true}\\
+20.     &  &\multicolumn{5}{l}{until atDeadEnd}\\
+        &  &\multicolumn{5}{l}{END SEARCH PHASE}\\
+21.     &  &\multicolumn{5}{l}{if (rounding or truncating binary variables gives $P$-feasible $x^*$) then}\\
+        &  &\multicolumn{5}{l}{\ \ \ \ return the $P$-feasible solution}\\
+        &  &\multicolumn{5}{l}{BEGIN RESTART PHASE}\\
+22.     &  &\multicolumn{5}{l}{replace objective function ``min $cx$'' of \mLPplus\ with ``max $\alpha x$''}\\
+23.     &  &\multicolumn{5}{l}{apply BVRS until objective value at least $\beta$}\\
+24.     &  &\multicolumn{5}{l}{restore objective function to ``min $cx$'' and add $\alpha x\ge \beta$ in \mLPplus}\\
+        &  &\multicolumn{5}{l}{END RESTART PHASE}\\
+25.     & \multicolumn{6}{l}{until (elapsedTime$\ge T$)}\\
+26.     &\multicolumn{5}{l}{return $x^*$}\\
+\end{tabular}
+\end{center}
+\label{PGC}
+}
+\end{figure}

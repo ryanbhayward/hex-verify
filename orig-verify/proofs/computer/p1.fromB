@@ -1,0 +1,36 @@
+From broderic@cs.ualberta.ca Sun Jan 22 04:46:13 2006
+
+> Hmmm... the + makes options seem to be at different depths even though 
+> they're children of the same pattern... I think horizontal levels should 
+> correspond to move number... so perhaps forget about the and/or 
+> distinction? I'm not sure how to limit the depths otherwise...
+
+It would be possible to force a + node everywhere I guess
+(but then I might as well switch it back to normal nodes being ANDs
+and mark OR nodes with a dot).
+
+In general the levels have no meang wrt to move number.  If pattern A
+calls pattern B, that could be at the next level, or 15 moves later,
+it would look the same in this tree.  But, in Yang's proof I guess it's
+ aways the second level, since his patterns always immediately call
+other patterns. 
+ 
+> One thing I noticed was that the lines sometimes obscure the text 
+> (especially for those lines at large angles). Perhaps if you try adding 
+> "linewidth=0pt" as one of the options (supposedly this gives the thinnest 
+> line possible, rather than "linestyle=none" which makes them invisible). Of 
+> course, if that's too thin to be visible, increment it or return to normal, 
+> but I think thinner lines might help a little.
+> [not sure if to do this need \psset{linewidth=0pt}, or just include it with 
+> treemode=R, etc.]
+
+The line thing was bothering me too. 
+
+I think stuff like this needs to be tweaked by hand -- if the 
+tree is smaller then these settings work fine.  I think we need to find
+a tree, get a reasonable format for it, then tweak it by hand until it looks
+nice.  :)
+ 
+-- 
+Broderick
+

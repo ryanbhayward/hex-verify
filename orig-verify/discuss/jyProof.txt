@@ -1,0 +1,114 @@
+Okay, first problem found! And I think it may not be minor...
+
+For pattern9 in Jing Yang's paper, I entered the following:
+( pattern9
+  (d4 SEdge)
+  (c1 c2 c3 d1 d2 d3 e2 e3 f1 g1)
+  (d4 f2 SEdge)
+
+  [(e3 [(pattern2ab (f2 SEdge) (f1 g1) (f2 SEdge))
+       ])
+   (d3 [(e2 [(pattern2ab (f2 SEdge) (f1 g1) (f2 SEdge))])
+       ])
+   (d3 [(c2 [(pattern2ab (c2 d3) (c3 d2) (c2 d3))]
+            [(pattern2ab (c2 SEdge) (c1 d1) (c2 SEdge))])
+       ])
+  ]
+)
+
+and it says there is a parsing error. I believe this is because in each of 
+the ANDs under the two d3 branches there is only a single OR option.
+
+***PLEASE CONFIRM THIS!! IF THIS IS WRONG, THE REST  OF WHAT I SAY BELOW 
+IS POINTLESS... BUT I CANNOT FIND THE ERROR OTHERWISE! EITHER WAY, THIS 
+WOULD BE A NICE PARSING ERROR TO GIVE MORE DETAIL ABOUT!***
+
+However, I cannot merge these two d3 branches, since then the intersection 
+would be non-empty (f1 and g1 are in both the e3 and d3 branches).
+
+So... I need the parser to allow a single OR option. But, if we do that, 
+nothing prevents the following from being a valid proof to join a2 and a4:
+
+[(a3)]
+
+And so I don't think single OR options are a valid way to go.
+
+So... maybe what I want instead is the potential to start a proof with 
+multiple ANDs:
+
+( pattern9
+  (d4 SEdge)
+  (c1 c2 c3 d1 d2 d3 e2 e3 f1 g1)
+  (d4 f2 SEdge)
+
+  [(f1) (g1)]      <----- extracting the common f1,g1 miai allows merging
+  [(e3)
+   (d3 [(e2)
+        (c2 [(pattern2ab (c2 d3) (c3 d2) (c2 d3))]
+            [(pattern2ab (c2 SEdge) (c1 d1) (c2 SEdge))])
+       ])
+  ]
+)
+
+I think this handles the problem because if there is a commonality that 
+forces non-merging, even though the strategy is valid, then both 
+strategies must handle that region in the same manner.
+
+Finally, a third option is to not have pattern9 responsible for f1,g1 but 
+instead give the responsibility to whoever called pattern9. Unfortunately, 
+I don't think this works, since what hexes could we say pattern9 connects? 
+Sometimes it connects d4 to SEdge, and sometimes it connects d4 to f2 
+(which is connected to SEdge, but it wouldn't know that if we shift this 
+info to the calling pattern).
+
+I think the most powerful solution is to allow the list of hexes being 
+connected to have options. For instance, (d4 SEdge | d4 f2), where `|' 
+represents OR. Of course, this is likely a pain to implement...
+
+The easiest solution is probably to have multiple ANDs... as long as each 
+AND has an empty pairwise intersection with the others, I'm convinced the 
+proof is still valid. I could see two ways to define the proof grammar:
+
+some unknown number of ANDs
+[]
+[]
+...
+[]
+
+or placing them in a common set of brackets:
+([]
+[]
+...
+[])
+
+whichever is easiest.
+
+Hope this makes sense (a hex board is necessary, I think, as is Jing 
+Yang's paper)
+
+In the meantime, I'll keep converting proofs... hopefully ones without 
+this issue. See the attached file for current correct patterns (plus 
+pattern9).
+
+Philip
+
+
+On Sun, 15 Jan 2006, Broderick Arneson wrote:
+
+> On Sun Jan 15, 2006 at 08:34:03PM -0700, Philip Henderson wrote:
+> > Hello,
+> > 
+> > I proceeded with the old format, since I wasn't sure whether/when you could 
+> > make the change... let me switch them over tomorrow morning (before the 
+> > meeting), and I'll let you know if it's working when we all meet.
+> 
+> Ok, sounds good. 
+>  
+> > Regarding the first move, I just figure that in the topmost pattern I will 
+> > assume that the first move is occupied (as well as NEdge and SEdge), and if 
+> > the pattern is valid, then all is well..? 
+> 
+> Yup, should be. 
+> 
+> 
+> 

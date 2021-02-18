@@ -1,0 +1,9 @@
+/DimX 4 def
+/DimY 4 def
+/Scale 1.2 def
+
+DrawHexBoard
+1 HexBoardEdgePieces
+HexBoardCoordinates
+
+4 1 (1) 1 HexWhiteLabelledPiece

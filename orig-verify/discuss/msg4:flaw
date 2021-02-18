@@ -1,0 +1,57 @@
+From broderic@cs.ualberta.ca Fri Jan  6 17:13:53 2006
+To:	Ryan Hayward <hayward@cs.ualberta.ca>
+Subject: Re: Monday 1pm my office
+
+On Fri Jan 06, 2006 at 02:51:08PM -0700, Ryan Hayward wrote:
+> BP,
+> 
+> great,
+> see you guys Monday
+
+
+I seem to have run into a problem doing the intersection.
+
+Take a look at the 4x4 proof.  
+
+The c2 node appears in the c3,b3, and d3 subtrees of the root. 
+So do c3,c4 and d2.  This means the normal intersection test fails
+at the root. 
+
+We obviously need to do something different for the intersection
+test then, don't we? 
+
+1ps node: its children need to have an empty intersection because we
+eventually need to play all of these sub strategies. 
+
+2ps node: now what?  in the 4x4 proof, after player 1 plays d1 and
+player 2 plays c2, player 1 can still win by going down the b3 subtree.
+Same if player 2 players c3,c4 or d2 instead of c2.  So even though
+the intersection fails, it's still a proof. 
+
+..... 
+
+(I postponed this email to think on it before sending)
+
+Actually, we can remove the c2 node from the b3 subtree, can't we?
+
+After player 1 has played d1 and b3, he's virtually connected
+to the right side (unless player 2 played a4 or b4, but then p1
+would play c3 instead of b3 as his second move).  But then we
+can always play one of b2 or d2, so the c2 move is extra.  
+
+I believe the proof can be re-structured for the c3,c4,and d2
+cases as well.  Maybe we don't need to change how the verifier works,
+maybe the proof can just be massaged into a slightly different
+form?  :)  Ie, you gave me a bad proof.   ;-)
+
+Actually, I'm pretty sure of this now.  If we explode the proof
+into its OR form, wouldn't this new tree fail the elusive test?
+
+
+Sorry this email is so sporadic, I've been writing it off and on
+for the last 40min or so while I think about stuff. :)
+
+
+-- 
+Broderick
+

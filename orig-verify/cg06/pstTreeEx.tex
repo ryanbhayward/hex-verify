@@ -1,0 +1,91 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -*- Mode: Latex -*- %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Trees-Centipede-Game.tex --- Game tree example: a 4 stage centipede game
+%%                              with two-sided incomplete information
+%% 
+%% Author          : Dave SCHMIDT (Indiana University - USA)
+%%                                <drschmid@indiana.edu>
+%% Created the     : 1996
+%% Last mod. by    : Denis GIROU (CNRS/IDRIS - France) <Denis.Girou@idris.fr>
+%% Last mod. the   : Wed Apr  2 22:00:41 1997
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+\usepackage{pst-tree}
+
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\newcommand{\TreeA}[4]{%
+  \pstree{\Tcircle[linestyle=dashed,treefit=tight,name=#1]%
+            {#2}\naput{#3}\nbput{$#4$}}}
+\newcommand{\TreeB}[3]{%
+  \pstree{\Tcircle[linestyle=dashed,name=#1]{#2}\naput{1-$\sigma_{#3}$}}}
+\newcommand{\TreeC}[3]{%
+  \Tdot~{(#1)}\naput{1-$\sigma_{#3}$}
+  \Tdot~{(#2)}\nbput{$\sigma_{#3}$}}
+\newcommand{\TreeD}[2]{%
+  \Tdot~{(#1)}\nbput{$\sigma_{#2}$}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\small
+
+\psset{radius=5pt,dotsize=3pt,treefit=loose,nrot=:U}
+
+\begin{center}
+  {\Large Centipede Game: Incomplete Information}
+  \vspace{.3in}
+
+  \pstree[levelsep=3cm,treemode=R]
+    {\Tcircle{0}}
+    {\TreeA{p1g11}{1.G1}{GG}{p^2}
+       {\TreeB{p2g11}{2.G1}{1.G1}
+          {\TreeB{p1g21}{1.G2}{2.G1}
+             {\TreeB{p2g21}{2.G2}{1.G2}
+                {\TreeC{64,16}{8,32}{2.G2}}
+              \TreeD{16,4}{1.G2}}
+           \TreeD{2,8}{2.G1}}
+        \TreeD{4,1}{1.G1}}
+     \TreeA{p1g12}{1.G1}{GA}{p(1-p)}
+       {\TreeB{p2a11}{2.A1}{1.G1}
+          {\TreeB{p1g22}{1.G2}{2.A1}
+             {\TreeB{p2a21}{2.A2}{1.G2}
+                {\TreeC{64,80}{8,40}{2.A2}}
+              \TreeD{16,20}{1.G2}}
+           \TreeD{2,10}{2.A1}}
+        \TreeD{4,5}{1.G1}}
+      \TreeA{p1a11}{1.A1}{AG}{(1-p)p}
+        {\TreeB{p2g12}{2.G1}{1.A1}
+           {\TreeB{p1a21}{1.A2}{2.G1}
+              {\TreeB{p2g22}{2.G2}{1.A2}
+                 {\TreeC{80,16}{40,32}{2.G2}}
+               \TreeD{20,4}{1.A2}}
+            \TreeD{10,8}{2.G1}}
+         \TreeD{5,1}{1.A1}}
+      \TreeA{p1a12}{1.A1}{AA}{(1-p)^2}
+        {\TreeB{p2a12}{2.A1}{1.A1}
+           {\TreeB{p1a22}{1.A2}{2.A1}
+              {\TreeB{p2a22}{2.A2}{1.A2}
+                 {\TreeC{80,80}{40,40}{2.A2}}
+               \TreeD{20,20}{1.A2}}
+            \TreeD{10,10}{2.A1}}
+         \TreeD{5,5}{1.A1}}}
+  % Other connections
+  \psset{linestyle=dashed}
+  \ncline{p1g11}{p1g12}
+  \ncline{p1a11}{p1a12}
+  \ncarc[arcangle=-10]{p1g21}{p1g22}
+  \ncarc[arcangle=-10]{p1a21}{p1a22}
+  \ncarc[arcangle=-15]{p2g11}{p2g12}
+  \ncarc[arcangle=15]{p2a11}{p2a12}
+  \ncarc[arcangle=-15]{p2g21}{p2g22}
+  \ncarc[arcangle=15]{p2a21}{p2a22}
+\end{center}
+
+\end{document}

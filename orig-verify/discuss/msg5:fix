@@ -1,0 +1,182 @@
+From ph@cs.ualberta.ca Sun Jan  8 05:19:29 2006
+Received: from shawidc-mo1.cg.shawcable.net ([24.71.223.10]:62674 "EHLO
+	pd2mo3so.prod.shaw.ca") by sunkay.cs.ualberta.ca with ESMTP
+	id S557334AbWAHMT3 (ORCPT <rfc822;hayward@cs.ualberta.ca>);
+	Sun, 8 Jan 2006 05:19:29 -0700
+Received: from pd2mr2so.prod.shaw.ca
+ (pd2mr2so-qfe3.prod.shaw.ca [10.0.141.109]) by l-daemon
+ (Sun ONE Messaging Server 6.0 HotFix 1.01 (built Mar 15 2004))
+ with ESMTP id <0ISR0029JWWGNT60@l-daemon>; Sun,
+ 08 Jan 2006 05:19:28 -0700 (MST)
+Received: from pn2ml1so.prod.shaw.ca ([10.0.121.145])
+ by pd2mr2so.prod.shaw.ca (Sun ONE Messaging Server 6.0 HotFix 1.01 (built Mar
+ 15 2004)) with ESMTP id <0ISR0009OWWGY110@pd2mr2so.prod.shaw.ca>; Sun,
+ 08 Jan 2006 05:19:28 -0700 (MST)
+Received: from D4X57B81 ([68.148.11.252])
+ by l-daemon (Sun ONE Messaging Server 6.0 HotFix 1.01 (built Mar 15 2004))
+ with SMTP id <0ISR004UYWWFW1D0@l-daemon>; Sun, 08 Jan 2006 05:19:28 -0700 (MST)
+Date:	Sun, 08 Jan 2006 05:19:42 -0700
+From:	Philip Henderson <ph@cs.ualberta.ca>
+Subject: Re: Monday 1pm my office
+To:	Broderick Arneson <broderic@cs.ualberta.ca>,
+	Ryan Hayward <hayward@cs.ualberta.ca>
+Message-id: <002801c6144d$ce40d330$fc0b9444@D4X57B81>
+MIME-version: 1.0
+X-MIMEOLE: Produced By Microsoft MimeOLE V6.00.2900.2670
+X-Mailer: Microsoft Outlook Express 6.00.2900.2670
+Content-type: text/plain; format=flowed; charset=iso-8859-1; reply-type=original
+Content-transfer-encoding: 7bit
+X-Priority: 3
+X-MSMail-priority: Normal
+References: <001a01c6109a$f48bf9e0$fc0b9444@D4X57B81>
+ <20060103123143.A9911@cs.ualberta.ca>
+ <000a01c6123c$b48aa280$fc0b9444@D4X57B81>
+ <20060105142709.A24337@cs.ualberta.ca>
+ <20060106034733.GA9119@worsley.cs.ualberta.ca>
+ <20060106133905.B30768@cs.ualberta.ca>
+ <20060106214747.GA14044@worsley.cs.ualberta.ca>
+ <20060106145108.A31446@cs.ualberta.ca>
+ <20060107001351.GA15036@worsley.cs.ualberta.ca>
+ <20060106224048.A947@cs.ualberta.ca>
+ <20060107080517.GA17796@worsley.cs.ualberta.ca>
+Return-Path: <ph@cs.ualberta.ca>
+X-Envelope-To: <hayward@cs.ualberta.ca> (uid 60001)
+X-Orcpt: rfc822;hayward@cs.ualberta.ca
+Original-Recipient: rfc822;hayward@cs.ualberta.ca
+Status: RO
+X-Status: A
+Content-Length: 4694
+Lines: 131
+
+The new proof is correct for a first move of b3. However, the problem is 
+whether there are valid proofs that our current method will not accept.
+
+Let's look at the old proof starting at d1 (sorry for the new notation - I 
+just find this easier to mentally parse):
+d1 -> | c3 -> | c2
+                     | d2
+                -> | b4
+                     | c4
+         | b3 -> | a4
+                     | b4
+                -> | c2
+                     | b2 -> | b1
+                                | c1
+                     | d2 -> | c3
+                           -> | d3 -> | c4
+                                           | d4
+        | d3 -> | c4
+                   | d4
+              -> | d2
+                   | b3 -> | a4
+                              | c3
+                         -> | c2
+                              | b2 -> | b1
+                                         | c1
+
+- The c3 branch obviously defeats all first opponent moves except for c3, 
+c2, d2, b4, and c4.
+- Of these moves, the b3 branch easily defeats d2, c3, and c4 via c2 or b2. 
+Thus, the only problematic opponent moves remaining are c2 and b4. b3 cannot 
+handle b4 because it must have one of a4/b4 and it's the opponent's turn 
+next (so they can grab a4). If c2 was the opponent's first move, then any of 
+b2, b1, and c1 cancel the b2 branch, leaving the d2 branch. The b3 -> d2 
+branch works in this scenario, so the only problematic first move for the 
+opponent is b4.
+- Looking at the d1 -> d3 branch (recalling that opponent must have played 
+b4 first), then d2 is forced, and so a4/c3 connects to one side. Hence c2 is 
+forced for the opponent, and b2 completes the win.
+
+So I agree this is a valid winning strategy, even though the intersection 
+rule fails.
+
+However, I am skeptical about the ability to `fix' this proof. For instance, 
+d2 appears in the b3 branch in order to defeat c2. Meanwhile, d2 is easily 
+defeated by the b3 -> c2/b2 branches. Thus, although it seems like the b3 
+branch is susceptible to c2 and d2, it is not (there is kind of a 
+circularity here...).
+
+I think fixing proofs is highly problematic - as the proofs get more 
+complicated, this will take longer (and may not always be possible..?) 
+Essentially our problem is that our verifier is sound, but not complete.
+
+The reason for this trouble, I think, is that by not specifying the 
+opponent's moves, we've made the opponent's plays appear more variable than 
+they really are. For instance, after d1, if the c3 branch does not work, 
+then when we consider b3 we actually know that the opponent has played one 
+of 5 moves. And if we need to consider b3 -> d4 (and I assume the branches 
+are considered in vertical order), then we know that the opponent's first 
+move had to be b4 (otherwise some other branch would have already 
+succeeded).
+
+Thus, I'm thinking we need to carry around a list of where the opponent 
+could possibly be (for each of the moves they've made), based on the 
+mustplay of previous branches. This certainly slows down and complicates our 
+verifier (or requires additional information in our proof), but I do not 
+think that fixing proofs is a reasonable option on larger boards.
+
+I'll keep thinking though and see if I can come up with a better way for 
+Monday...
+
+Phil
+
+----- Original Message ----- 
+From: "Broderick Arneson" <broderic@cs.ualberta.ca>
+To: "Ryan Hayward" <hayward@cs.ualberta.ca>
+Cc: "Broderick Arneson" <broderic@cs.ualberta.ca>; "Philip Henderson" 
+<ph@cs.ualberta.ca>
+Sent: Saturday, January 07, 2006 1:05 AM
+Subject: Re: Monday 1pm my office
+
+
+>I think I have a much shorter proof for the 4x4.
+>
+> It is simply this:
+>
+> (b3 [(a4) (b4)]
+>    [(b2 [(b1) (c1)])
+>     (c2 [(c1) (d1)])
+>     (a2 [(a1) (b1)]
+>         [(b2) (a3)])
+>    ]
+> )
+>
+>
+> Basically, play to b3.  Then the [(a4) (b4)] substragey is
+> the virtual connection to the right side.  If player 2 doesn't
+> play to c1, then play to either b2 or c2 that will give us a
+> virtual connection to the left side.
+>
+> If player 2 plays to c1, play a2.  Again, we are now v.c.'d to
+> the left and must connect to b3.  But we have two ways of going,
+> through either b2 or a3.
+>
+> I'm pretty sure this is correct.
+>
+> It also works with my code.  :)
+>
+> Btw, I'll get the cvs stuff up and running tomorrow.
+>
+>
+>
+> On Fri Jan 06, 2006 at 10:40:48PM -0700, Ryan Hayward wrote:
+>> B,
+>>
+>> excellent!
+>>
+>> it will make the paper much more interesting
+>> if we actually have to *think* about things...
+>>
+>> I'm in the middle of something for the next
+>> day or so, but I'll try to sort it out before Monday.
+>>
+>> In the meantime,
+>> I'll let you and Phil puzzle over this nice small problem :)
+>>
+>> RBH
+>
+> -- 
+> Broderick
+> 
+
+

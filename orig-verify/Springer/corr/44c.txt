@@ -1,0 +1,45 @@
+44: Ryan Hayward, Broderic Arneson and Philip Henderson. Verifying Hex Strategies
+
+REVIEW FORM CG2006
+
+1. Overall Summary 
+                                     Excellent    Good     Average      Fair      Poor 
+  Relevance to CG2006        	[ ]       	[x]        [ ]        [ ]          [ ] 
+  Significance              	[ ]       	[ ]        [x]        [ ]          [ ] 
+  Originality               	[ ]       	[x]        [ ]        [ ]          [ ] 
+  Technical Soundness   	[ ]       	[ ]        [x]        [ ]          [ ] 
+  Presentation              	[ ]       	[ ]        [x]        [ ]          [ ] 
+  Overall Summary           	[ ]       	[ ]        [x]        [ ]          [ ] 
+
+Explanations on the previous points
+Relevance: is the paper of current interest to a reasonable segment of the CG2006 audience?  To what extent is material in the paper likely to be used by other computers and games researchers and practitioners?
+Significance: is the work described in the paper important?  Does it advance the state of the art? Does the paper stimulate discussion of important issues or alternative points of view?
+Originality: are the problems or approaches new?
+ Is this a novel combination of existing techniques?
+ Does the paper point out differences from related research? 
+Technical soundness: is the paper technically sound? 
+Presentation: is the paper clearly written? 
+
+2. Recommendation 
+       [ ] Strong Accept 
+       [x] Accept 
+       [ ] Leaning to accept 
+       [ ] Leaning to reject 
+       [ ] Reject 
+       [ ] Strong Reject 
+
+3. Further Comments to the Authors. 
+Please give any further comments to the authors here. 
+
+The authors should be careful of the way to quote or use unrefereed volatile (easily changeable) documents on the web.
+
+[ free text block ]
+
+
+  Level of confidence in your judgement of the paper: 
+  [x] Very confident - I am an expert in this area. 
+  [ ] Confident - I have a reasonable knowledge of the paper's topics. 
+  [ ] Fairly confident - I have some knowledge of the paper's topics. 
+  [ ] Not confident - I have no significant knowledge of this area. 
+
+

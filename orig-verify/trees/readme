@@ -1,0 +1,56 @@
+From broderic@cs.ualberta.ca Thu Jan 19 21:34:46 2006
+
+I just commited some code to output patterns in pstricks format.
+
+To try it on the supplied 4x4proof, do:
+
+./hex < 4x4proof --pstricks
+
+Each pattern gets a .tex file with its name.  In this case,
+the single pattern in this file is called '4x4proof' so the output
+should be in '4x4proof.tex'.  These files are overwritten without
+warning so be careful. ;-)
+
+
+I have the following header in the tex file:
+
+"\begin{figure}[p]
+\centering
+\small"
+
+then the tree info follows. After that, there is:
+
+"\caption{4x4proof}
+\end{figure}"
+
+I stick the pattern name into the caption.
+
+Phil gave me an example tree with circles around the hex labels.
+In the paper it looks like there are no circles.  I chose
+the no circle option for the default, but if you want circles
+use the command-line argument "--pstricks-circles" (in addition
+to the "--pstricks" argument). 
+
+I can easily add options to change the font size 
+and turn off centering if these are wanted/needed.
+I can also add options to change those pstricks options
+that you guys set in the root node.  
+
+A simple \input{pattern name} should be the only thing necessary
+to include these trees in the paper.  
+
+If you don't like anything, let me know. :)
+
+
+On Thu Jan 19, 2006 at 05:58:27PM -0700, Ryan Hayward wrote:
+> B,P,
+> 
+> ok, I've moved the directory to
+> ~hayward/acg06
+> enjoy
+> 
+> R
+
+-- 
+Broderick
+

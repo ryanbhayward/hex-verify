@@ -1,0 +1,99 @@
+\begin{thebibliography}{10}
+
+\bibitem{Gardner57}
+Martin Gardner.
+\newblock Mathematical {G}ames.
+\newblock {\em {S}cientific {A}merican}, 197, 1957.
+\newblock July pp.\ 145--150; August pp.\ 120--127; October pp.\ 130--138.
+
+\bibitem{Gardner59}
+Martin Gardner.
+\newblock {\em The {S}cientific {A}merican {B}ook of {M}athematical {Puzzles}
+  and {D}iversions}, chapter The game of {H}ex, pages 73--83.
+\newblock Simon and Schuster, New York, 1959.
+
+\bibitem{HaywardvanR05}
+Ryan Hayward and Jack van Rijswijck.
+\newblock Hex and {C}ombinatorics (formerly {N}otes on {H}ex).
+\newblock to appear in {D}iscrete {M}athematics, 2005.
+
+\bibitem{HaywardEtAl03}
+Ryan~B. Hayward, Yngvi Bj{\"{o}}rnsson, Michael Johanson, Morgan Kan, Nathan
+  Po, and Jack van Rijswijck.
+\newblock Solving $7\times 7$ {H}ex: {V}irtual {C}onnections and {G}ame-state
+  {R}eduction.
+\newblock In H.~Jaap van~den Herik, Hiroyuki Iida, and Ernst~A. Heinz, editors,
+  {\em Advances in Computer Games}, volume 263 of {\em IFIP International
+  Federation for Information Processing}, pages 261--278. Kluwer Academic
+  Publishers, Boston, 2003.
+
+\bibitem{HaywardEtAl05}
+Ryan~B. Hayward, Yngvi Bj{\"{o}}rnsson, Michael Johanson, Morgan Kan, Nathan
+  Po, and Jack van Rijswijck.
+\newblock Solving $7\times 7$ {H}ex with domination, fill-in, and virtual
+  connections.
+\newblock {\em Theoretical Computer Science}, 2005 (to appear).
+
+\bibitem{Maarup05}
+Thomas Maarup.
+\newblock Hex -- everything you always wanted to know about {H}ex but were
+  afraid to ask.
+\newblock Master's thesis, Department of Mathematics and Computer Science,
+  University of Southern Denmark, Odense, Denmark, 2005.
+
+\bibitem{Maarup05w}
+Thomas Maarup.
+\newblock Hex webpage.
+\newblock \\ {\tt http://maarup.net/thomas/hex/}, 2005.
+
+\bibitem{Nasar98}
+Sylvia Nasar.
+\newblock {\em A {B}eautiful {M}ind}.
+\newblock Touchstone, New York, 1998.
+
+\bibitem{Nash52}
+John Nash.
+\newblock Some {G}ames and {M}achines for {P}laying {T}hem.
+\newblock Technical Report D-1164, Rand Corp., 1952.
+
+\bibitem{Noshita05}
+Kohei Noshita.
+\newblock Union-{C}onnections and {S}traightforward {W}inning {S}trategies in
+  {H}ex.
+\newblock {\em International Computer Games Association Journal}, 28(1):3--12,
+  March 2005.
+
+\bibitem{Reisch81}
+Stefan Reisch.
+\newblock Hex ist {PSPACE}-vollst{\"a}ndig.
+\newblock {\em Acta {I}nformatica}, 15:167--191, 1981.
+
+\bibitem{Yang03}
+Jing Yang.
+\newblock Jing yang's web site.
+\newblock \\ {\tt www.ee.umanitoba.ca/\~{}jingyang}, 2003.
+
+\bibitem{Yang01}
+Jing Yang, Simon Liao, and Mirek Pawlak.
+\newblock A decomposition method for finding solution in game {H}ex 7x7.
+\newblock In {\em International {C}onference on {A}pplication and {D}evelopment
+  of {C}omputer {G}ames in the 21st {C}entury}, pages 96--111, November 2001.
+
+\bibitem{Yang01web}
+Jing Yang, Simon Liao, and Mirek Pawlak.
+\newblock On a decomposition method for finding winning strategy in {H}ex game.
+\newblock {\tt www.ee.umanitoba.ca/\~{}jingyang/hexsol.pdf}., 2001.
+
+\bibitem{Yang02a}
+Jing Yang, Simon Liao, and Mirek Pawlak.
+\newblock Another solution for {H}ex 7x7.
+\newblock Technical report, University of Manitoba, Winnipeg, Canada, 2002.
+\newblock \\ {\tt www.ee.umanitoba.ca/\~{}jingyang/TR.pdf}.
+
+\bibitem{Yang02b}
+Jing Yang, Simon Liao, and Mirek Pawlak.
+\newblock New {W}inning and {L}osing {P}ositions for 7x7 {H}ex.
+\newblock In {\em Computers and Games}, volume 2883 of {\em Lecture Notes in
+  Computer Science}, pages 230--248. Springer, 2002.
+
+\end{thebibliography}

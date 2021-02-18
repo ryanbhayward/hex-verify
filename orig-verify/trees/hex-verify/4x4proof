@@ -1,0 +1,56 @@
+(boardsize 4)
+
+{
+// simple b3 proof
+(simple_4x4_proof 
+  (NEdge SEdge)
+  (a1 a2 a3 a4 b1 b2 b4 c1 c2 c3 c4 d1 d2 d3 d4)
+  (NEdge SEdge b3)
+
+    [(a4) (b4)] 
+    [(b2 [(b1) (c1)])
+     (c2 [(c1) (d1)])
+     (a2 [(a1) (b1)]
+         [(b2) (a3)])
+    ]
+)
+}
+
+( 
+  vc 
+  ((a1 b2))
+  (a2 b1)
+  (a1 b2)
+
+  [(a2) (b1)]
+)
+
+
+(
+  4x4proof
+  ((BL TR))
+  (a1 a2 a3 a4 b1 b2 b3 b4 c1 c2 c3 c4 d2 d3 d4)  
+  (BL TR d1)
+
+  [
+     (c3 [ (vc(d2 c2)(d1 c3)) ]
+         [ (vc(b4 c4)(c3 TR)) ])
+     
+     (b3 [(a4) (b4)]
+         [(c2) (b2 [(b1) (c1)])])
+
+     (d2 [(d3 [(c4) (d4)])
+          (b3 [(a4) (b4)]
+              [(c3) (b2 [(b1) (c1)])]
+          )
+         ])    
+
+     (d3 [(c4) (d4)]
+         [(d2) 
+	  (b3 [(a4) (c3)]
+              [(c2) 
+               (b2 [(b1) (c1)]) 
+              ])
+         ])
+   ]
+)

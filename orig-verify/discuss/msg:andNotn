@@ -1,0 +1,54 @@
+B,
+I didn't get very far towards writing out proofs
+in the most basic notation, because it seems
+counter-intuitive not to use "and"...
+
+I think the following might be 
+a better syntax to use...
+
+1ps ::=  "("  cellLabel { 2ps }* ")"
+
+first player strategy is 
+  left-paren, followed by
+  cellLabel, followed by
+  0 or more instances of a second-player-strategy, followed by
+  right-paren
+
+  semantics: the player executes the "and" these 2ps's,
+  namely all of them independently
+
+2ps ::= "[" 1ps 1ps {1ps}* "]"
+
+second-player strategy is
+  left bracket, followed by
+  two or more instances of a first-player-strategy, followed by
+  right bracket
+
+  semantics: 
+  the player executes the "or" of these 1ps's
+
+
+example: 1ps for 3x3
+
+(b2 
+   [ (a3) (b3) ]
+   [ (b1) (c1) ] )
+
+example: 1ps for 4x4
+
+(d1 [
+     (c3 [(c2)(d2)]
+         [(b4)(c4)])
+     (b3 [(a4)(b4)]
+         [(c2)
+	  (b2[(b1)(c1)])
+	  (d2[(c3)
+	      (d3[(d4)(c4)])
+	     ])])
+     (d3 [(c4)(d4)]
+         [(d2)
+	  (b3 [(a4)(c3)]
+              [(c2)
+	       (b2 [(b1)(c1)])
+	      ])])
+     ])

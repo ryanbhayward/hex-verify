@@ -1,0 +1,41 @@
+%\begin{figure}[h]
+%{\scriptsize 
+\ \hf \epsfig{file=B3.eps,scale=3.0} \hf \ 
+
+\vspace*{.75in}
+
+\ \hfill \epsfig{file=B3full.eps,scale=3.0}  \hf \ 
+
+\vspace*{.75in}
+
+{\LARGE
+\hf {\pstree[treemode=R,linewidth=1pt,treesep=4pt,nodesep=4pt,treefit=tight,levelsep=6ex]{ \TR{c1} } {
+   \pstree{ \TR{$\bullet$} } {
+     \pstree{ \TR{c2} } {
+       \pstree{\TR{$\bullet$}}{
+         \TR{c3}
+         \TR{b3}
+       }
+      }
+      \pstree{ \TR{a3} } {
+         \pstree{\TR{$\bullet$}}{
+           \TR{b2}  
+	   \pstree{\TR{a2}}{
+	      \pstree{\TR{$\bullet$}} {
+	         \TR{b1}
+	         \TR{a1}
+              }
+           }
+         }
+       }
+       \pstree{ \TR{b2} } {
+         \pstree{\TR{$\bullet$}}{
+           \TR{a3}
+	   \TR{b3}
+         }
+       }
+     }
+   }
+}\hf \ 
+}
+%\end{figure}

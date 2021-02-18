@@ -1,0 +1,13 @@
+%%  c1 1pw (1st player win) on 3x3 board
+(c1
+   (b2
+      (a3)
+      (b3))
+   (c2
+      (b3)
+      (c3))
+   (a3
+      (b2)
+      (a2
+          (a1)
+          (b1))))

@@ -1,0 +1,72 @@
+From broderic@cs.ualberta.ca Fri Jan 20 22:53:09 2006
+Received: from worsley.cs.ualberta.ca ([129.128.23.156]:41112 "EHLO
+	worsley.cs.ualberta.ca") by sunkay.cs.ualberta.ca with ESMTP
+	id S559993AbWAUFxI (ORCPT <rfc822;hayward@cs.ualberta.ca>);
+	Fri, 20 Jan 2006 22:53:08 -0700
+Received: by worsley.cs.ualberta.ca (Postfix, from userid 11458)
+	id DBA19982BF; Fri, 20 Jan 2006 22:53:08 -0700 (MST)
+Date:	Fri, 20 Jan 2006 22:53:08 -0700
+To:	Ryan Hayward <hayward@cs.ualberta.ca>
+Cc:	Broderick Arneson <broderic@cs.ualberta.ca>,
+	Philip Henderson <ph@cs.ualberta.ca>
+Subject: Re: allo?
+Message-ID: <20060121055308.GA25941@worsley.cs.ualberta.ca>
+References: <20060120143624.A4606@cs.ualberta.ca> <20060120220632.GA22079@worsley.cs.ualberta.ca> <20060120161959.E5208@cs.ualberta.ca>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20060120161959.E5208@cs.ualberta.ca>
+User-Agent: Mutt/1.4.1i
+From:	broderic@cs.ualberta.ca (Broderick Arneson)
+Return-Path: <broderic@cs.ualberta.ca>
+X-Envelope-To: <hayward@cs.ualberta.ca> (uid 60001)
+X-Orcpt: rfc822;hayward@cs.ualberta.ca
+Original-Recipient: rfc822;hayward@cs.ualberta.ca
+Status: RO
+Content-Length: 1427
+Lines: 43
+
+> > 
+> > Sure.  It'll be a hack, but a really simple one. 
+> > I'll see what I can come up with. 
+> 
+> that would be great; thanks...
+
+Ok, I've got something working.  
+
+There are two types of pstricks output.
+Use "--pstricks-trees" to output the proof tree for each pattern.
+Use "--pstricks-calls" to output the pattern call tree for each pattern.
+You can use none, either one, or both. 
+
+The second command creates a 'patternname-calls.tex' file for each pattern.
+
+When printing the pattern names I use only the suffix of the pattern
+name starting with the first digit.  So "pattern32ab" is printed
+as "32ab" and "foo34bar36moo" would be "34bar36moo".  
+This seems to work decently well for the naming scheme we've been
+using so far. 
+
+The called patterns of a node are displayed in the order that Phil entered
+them in that pattern. From the ones I looked at, it seems this is very 
+close to what's in the paper.  Now we can see what the hell Yang was doing. :-P
+
+The spacing can be an issue, so it may be necessary to go in and
+change the spacing parameters by hand if the tree looks bad. 
+Since we'll probably only use this for pattern1 this is 
+a non-issue, I guess. :)
+
+> yes, absolutely;
+> sending me a 1/2-1 page description
+> of how our algorithm works would be very helpful...
+
+Do you mind if I do this tomorrow morning? :)
+
+> giving a small sample of actual input
+> and output might be fun...
+
+Sure. 
+
+-- 
+Broderick
+

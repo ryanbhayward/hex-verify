@@ -1,0 +1,122 @@
+From broderic@cs.ualberta.ca Thu Dec 15 20:21:22 2005
+
+On Thu Dec 15, 2005 at 03:04:00PM -0700, Ryan Hayward wrote:
+> Hi B,
+> 
+> because of the nature of Hex,
+> proofs can be described very compactly;
+> in particular, opponent moves can be ignored  :)
+> 
+> part of the verification is to confirm
+> that regardless of the opponent's moves,
+> there is always an available counterstrategy;
+> 
+> in its simplest form,
+> the proof notation is simply a tree in which
+> nodes are labelled with moves;
+> 
+> verification consists of checking
+>   * each tree is legal 
+>       (no move is repeated,
+>        namely each node's label is distinct
+>        from the labels of its proper ancestors)
+
+This makes obvious sense. 
+
+>   * each tree is elusive 
+>     (this is the counterstrategy condition:
+>        for each internal node,
+>          no label occurs in all subtrees;
+> 	   this happens if and only if each internal
+> 	   node has at least two children,
+> 	   and, for each associated subtree,
+> 	   the combined intersection of the nodes of the subtrees
+> 	   is empty set);
+
+>   * each tree is satisfying 
+>     (satisfies the winning condition:
+>      for each leaf,
+>        the player has a side-to-side connected component)
+
+So the hexes comprising the root-to-leaf path in the tree form 
+a path from one side to the other? 
+
+
+About the second point: 
+
+  So each internal node needs at least two children and
+  the intersection of the nodes comprising each of the children
+  should be empty. 
+ 
+  If this is true then we win, if not, we can be blocked...
+
+  This seems to make intuitive sense to me.  If one of our
+  subtrees is simply a single chain of nodes, then our opponent can
+  play any node of that chain and kill that strategy. 
+
+  If any internal node has only one child, then playing at that
+  node's child kills that solution. So if our proof has an 
+  internal node with one child, our opponent
+  can play moves to "steer" us toward that node and then block
+  us by playing its child.  
+
+  Actually, that's only true if each node has at most 2 children.
+  If a node has 3 children, and one of those children is an
+  interal node with only one child, isn't everything still ok
+  assuming the other 2 subtrees meet the above conditions?
+  I suppose here we could just drop that child and its subtree 
+  and everything would be fine anyway.
+  
+  Sorry for rambling here, but I'm just trying to get a grasp
+  of how this works.  :)
+
+> for example,
+> for the 3x3 board,
+> 
+>       1   2   3
+> a     .   .   .
+>   b     .   .   .
+>     c     .   .   .
+> 
+> here's a winning 1st-player strategy for horizontal,
+> where I'm drawing the tree using the usual "sideways" notation...
+> (so c1 has three children, b2, c2, a3)
+> 
+> (c1
+>    (b2
+>       (a3)
+>       (b3))
+>    (c2
+>       (b3)
+>       (c3))
+>    (a3
+>       (b2)
+>       (a2
+>           (a1)
+>           (b1))))
+
+
+That tree without the first b2 subtree would also be winning, wouldn't it?
+
+ 
+> once we get this implemented,
+> the next step is to augment the notation
+> to allow the "and" operation, namely the combinatorial
+> sum of two games;
+> this allows our tree representation to be much more compact...
+
+Heh, I have no idea what this means. ;-)
+ 
+> if we get that implemented,
+> then there are some other extensions we should add too,
+> (namely, a notation to hand point to point and/or connections)
+> but I'm getting ahead of myself...
+
+
+This looks interesting to me.  I'd definetly like to help in
+getting it implemented. 
+
+
+-- 
+Broderick
+

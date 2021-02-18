@@ -1,0 +1,61 @@
+From ph@cs.ualberta.ca Sun Jan 22 04:13:43 2006
+
+> Ok, I've got it, I think.
+>
+> An example for pattern1 is attached.
+>
+> Now, to make it readable (or even possible), I had to throw out
+> all the small patterns (32a, 32b, 2ab, 13).   I only expand a pattern
+> once, afterwards I just print its number and stop.
+
+This seems reasonable to me... the only other option is to show a subtree 
+(i.e. root != pattern1) more fully
+
+> The tricky part was showing the and/or relationship.  Most of the time,
+> it is an or relationship.  Occasionally there is an and relationship.
+> This is because the majority of the time a pattern is played with
+> other small patterns (like 2 or 32).   Also, if a dot node is used
+> for an OR node, then almost every level needs to be expanded to two 
+> levels --
+> and the tree is almost too large already.
+
+Good point... I didn't think of that.
+
+> The way I ended up doing it is as follows:
+>
+> 1) by default a node is an or node
+> 2) and nodes are marked with a + sign
+>
+> I think this is pretty easy to read and understand -- its unfortunate
+> that it differs slightly from the other trees we have in the paper.
+> Grrrr....
+>
+> Despite this notational confusion, I think the graph does illustrate
+> how the patterns relate to each.
+
+Hmmm... the + makes options seem to be at different depths even though 
+they're children of the same pattern... I think horizontal levels should 
+correspond to move number... so perhaps forget about the and/or distinction? 
+I'm not sure how to limit the depths otherwise...
+
+The subtree/subpattern idea looks more appealing to me right now... I'm not 
+sure - what's the purpose in the paper? To demonstrate a sample, or give an 
+overview of Yang's proof?
+
+> Comments?
+>
+> PS. If you guys think this is ok, this tree will need to be
+> massaged into something slightly more presentable.  But it's a start,
+> I think.
+
+One thing I noticed was that the lines sometimes obscure the text 
+(especially for those lines at large angles). Perhaps if you try adding 
+"linewidth=0pt" as one of the options (supposedly this gives the thinnest 
+line possible, rather than "linestyle=none" which makes them invisible). Of 
+course, if that's too thin to be visible, increment it or return to normal, 
+but I think thinner lines might help a little.
+[not sure if to do this need \psset{linewidth=0pt}, or just include it with 
+treemode=R, etc.]
+
+That's about it though... I don't have any other ideas at this hour :)
+

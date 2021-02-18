@@ -1,0 +1,72 @@
+> what I haven't embedded yet,
+> but hope to:
+> 
+> *  picture of recursion tree for patterns
+>    (do we have that yet?)
+
+One idea on this: only expand the calls of patterns the first time we see 
+them. For instance, say
+A -> B, C (pattern A calls patterns B and C)
+B -> C, D
+C -> D
+and D -> E, F
+
+Then we can show the tree as:
+A -> B -> C -> D -> E
+                 -> F
+       -> D (don't expand here)
+  -> C (don't expand here)
+
+Of course, there may be no easy way to do this quickly... in which case I 
+second Broderick's motion to go for a subtree. Pattern 1 alone has a 
+branching factor >20, so even if our depth isn't big, it's a huge tree
+
+... I type too slowly, you guys already figured that out :)
+
+> *  example of our notation for a particular pattern
+>    (say pattern 1)
+
+Pattern 1 is rather large and ugly... I'd prefer a smaller pattern that 
+shows all the tricks, such as pattern 8:
+
+( pattern8
+  // called by: 1
+  ((c6 BR) (d4 BR))
+  (d6 e3 e4 e5 e6 f2 f3 f4 f5 f6 g1 g2 g3 g4 g5 g6)
+  (c6 d4 BR)
+
+  [(f3 [(pattern2ab (e3 e4) (d4 f3))]
+       [(pattern2ab (g2 g3) (f3 BR))])
+   (e5 [(d6) (e4)]
+       [(pattern13 (e6 f4 f5 f6 g3 g4 g5 g6) (e5 BR))])
+   (f2 [(pattern2ab (g1 g2) (f2 BR))]
+       [(pattern9 (g5 g4 f5 f4 f3 e5 e4 e3) (BR f2 d4))])
+   (e3 [(pattern17 (d6 e5 e6 f2 f3 f4 f5 g1 g2 g3 g4 g5) (c6 d4 e3 BR))])
+  ]
+)
+
+It has multiple possible goals (something pattern 1 lacks), refers to 
+other patterns, and has a variety of AND/OR combinations.
+
+> *  diagnostic message from our successful run,
+>    together with explanation
+
+That's easy enough... For each pattern, it outputs the following:
+
+pattern1             <- name
+connect: (TL BR)     <- connect list/options
+  empty: (a1 a2 a3 a4 a5 a6 a7 b1 b2 b3 b4 b5 b6 b7 c1 c2 c3 c4 c5 c6 c7 
+d1 d2 d3 d5 d6 d7 e1 e2 e3 e4 e5 e6 e7 f1 f2 f3 f4 f5 f6 f7 g1 g2 g3 g4 g5 
+g6 g7)               <- hexes that are not occupied by the opponent
+ played: (TL d4 BR)  <- hexes we must occupy
+  stats: AND = 1480, OR = 2339, Leafs = 3514
+  paths: 25574/25574 <- the properties of the expanded tree (Broderick, 
+confirm?)
+VALID pattern.       <- whether it passed or failed
+
+If it failed, it will also give messages, such as:
+1) not isomorphic
+2) intersection between children (AND or OR)
+3) does not form a winning path
+and so on.
+
